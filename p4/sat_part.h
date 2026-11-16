@@ -41,7 +41,10 @@ static inline void enqueue(int l, int r) {
 }
 
 static void init(int n) {
-    nv = n; arena.clear(); cls.clear(); watches.assign(2 * n, {});
+    nv = n; arena.clear(); cls.clear();
+    if ((int)watches.size() > 2 * n) watches.resize(2 * n);
+    for (auto& w : watches) w.clear();
+    watches.resize(2 * n);
     asg.assign(n, -1); lvl.assign(n, 0); reason.assign(n, -1); trailv.clear(); trailLim.clear();
     phase.assign(n, 0); act.assign(n, 0); seenv.assign(n, 0);
     heap.clear(); hpos.assign(n, -1);
@@ -229,7 +232,9 @@ static bool cycleCheck() {
 static long long hookConfl = 0;
 // returns 1 sat, 0 unsat, -1 timeout
 static long long conflictsTotal = 0;
+static long long conflLimit = (long long)4e18;
 static int solve(double deadline) {
+    long long conflStart = conflictsTotal;
     if (unsatFlag) return 0;
     cancelUntil(0);
     if (propagate() >= 0) { unsatFlag = true; return 0; }
@@ -250,7 +255,7 @@ static int solve(double deadline) {
                 if (learnt.size() == 1) enqueue(learnt[0], -1);
                 else { int ncr = addClauseRaw(learnt, true); cls[ncr].act = clInc; enqueue(learnt[0], ncr); nLearnts++; }
                 varInc *= 1 / 0.95; clInc *= 1 / 0.999;
-                if ((conflictsTotal & 255) == 0 && elapsed() > deadline) { cancelUntil(0); return -1; }
+                if (conflictsTotal - conflStart > conflLimit || ((conflictsTotal & 255) == 0 && elapsed() > deadline)) { cancelUntil(0); return -1; }
             } else {
                 if (hookOn && cycleCheck()) {
                     hookConfl++; conflictsTotal++; confl++;
@@ -286,13 +291,16 @@ static inline int modelVal(int v) { return asg[v] == 1; }
 
 // Build the Masyu CNF over edge vars and solve with lazy subtour cuts.
 static long long satIters = 0;
-static vector<char> satSolve(double deadline) {
+static int BR0 = 0, BR1 = 1 << 20, BC0 = 0, BC1 = 1 << 20;  // build box (cells)
+static inline bool inBox(int x, int m) { int r = x / C, c = x % C; return r >= BR0 - m && r <= BR1 + m && c >= BC0 - m && c <= BC1 + m; }
+static void buildBase(int nvars) {
     using namespace cdcl;
-    init(E);
+    init(nvars);
     hookOn = true; checkedUpTo = 0;
     auto P = [](int e) { return 2 * e; };
     auto Nn = [](int e) { return 2 * e + 1; };
     for (int x = 0; x < N; x++) {
+        if (!inBox(x, 1)) continue;
         vector<int> S;
         for (int d = 0; d < 4; d++) if (cedge[x * 4 + d] >= 0) S.push_back(cedge[x * 4 + d]);
         int k = S.size();
@@ -309,6 +317,7 @@ static vector<char> satSolve(double deadline) {
     // encode with auxiliary? Use direct clauses instead.
     for (int pi = 0; pi < nPearls; pi++) {
         int p = pearls[pi];
+        if (!inBox(p, 3)) continue;
         char t = G[p / C][p % C];
         if (t == 'B') {
             for (int ax = 0; ax < 2; ax++) {
@@ -349,7 +358,10 @@ static vector<char> satSolve(double deadline) {
             }
         }
     }
-    // lazy loop
+}
+static vector<char> solveLoop(double deadline) {
+    using namespace cdcl;
+    auto P = [](int e) { return 2 * e; };
     vector<int> comp(N, -1);
     vector<char> on(E, 0);
     while (true) {
@@ -418,4 +430,67 @@ static vector<char> satSolve(double deadline) {
         if (!anyCut) return {};  // should not happen
         if (elapsed() > deadline) return {};
     }
+}
+
+static vector<char> satSolve(double deadline) {
+    BR0 = 0; BR1 = 1 << 20; BC0 = 0; BC1 = 1 << 20;
+    buildBase(E);
+    cdcl::conflLimit = (long long)4e18;
+    return solveLoop(deadline);
+}
+
+// Sinz sequential counter: sum(xs) <= K, aux vars from 'base'
+static void atMostK(const vector<int>& xs, int K, int base) {
+    using namespace cdcl;
+    int n = xs.size();
+    if (K >= n) return;
+    if (K == 0) { for (int x : xs) addClause({2 * x + 1}); return; }
+    auto S = [&](int i, int j) { return base + i * K + j; };  // i in [0,n-1), j in [0,K)
+    auto Pl = [](int v) { return 2 * v; };
+    auto Nl = [](int v) { return 2 * v + 1; };
+    addClause({Nl(xs[0]), Pl(S(0, 0))});
+    for (int j = 1; j < K; j++) addClause({Nl(S(0, j))});
+    for (int i = 1; i < n - 1; i++) {
+        addClause({Nl(xs[i]), Pl(S(i, 0))});
+        addClause({Nl(S(i - 1, 0)), Pl(S(i, 0))});
+        for (int j = 1; j < K; j++) {
+            addClause({Nl(xs[i]), Nl(S(i - 1, j - 1)), Pl(S(i, j))});
+            addClause({Nl(S(i - 1, j)), Pl(S(i, j))});
+        }
+        addClause({Nl(xs[i]), Nl(S(i - 1, K - 1))});
+    }
+    addClause({Nl(xs[n - 1]), Nl(S(n - 2, K - 1))});
+}
+
+// one LNS step: re-route inside window [r0,r1]x[c0,c1] with strictly fewer edges
+static long long lnsTried = 0, lnsImproved = 0, lnsUnsat = 0;
+static bool lnsStep(vector<char>& cur, int r0, int r1, int c0, int c1, long long climit, double deadline) {
+    vector<int> fr;
+    vector<char> isFree(E, 0);
+    int curFree = 0;
+    for (int e = 0; e < E; e++) {
+        int u = eu[e], v = ev[e];
+        int ur = u / C, uc = u % C, vr = v / C, vc = v % C;
+        bool in = (ur >= r0 && ur <= r1 && uc >= c0 && uc <= c1) || (vr >= r0 && vr <= r1 && vc >= c0 && vc <= c1);
+        if (in) { isFree[e] = 1; fr.push_back(e); curFree += cur[e]; }
+    }
+    if (curFree < 2) return false;
+    int K = curFree - 2;
+    int n = fr.size();
+    int aux = (K > 0 && K < n) ? (n - 1) * K : 0;
+    BR0 = r0; BR1 = r1; BC0 = c0; BC1 = c1;
+    buildBase(E + aux);
+    for (int e = 0; e < E; e++) if (!isFree[e]) cdcl::addClause({2 * e + (cur[e] ? 0 : 1)});
+    cdcl::checkedUpTo = cdcl::trailv.size();
+    atMostK(fr, K, E);
+    // phase: start from the current solution
+    for (int e = 0; e < E; e++) cdcl::phase[e] = cur[e];
+    cdcl::conflLimit = climit;
+    lnsTried++;
+    vector<char> r = solveLoop(deadline);
+    if (r.empty()) { if (cdcl::unsatFlag) lnsUnsat++; return false; }
+    int Lr = 0, Lc = 0;
+    for (int e = 0; e < E; e++) { Lr += r[e]; Lc += cur[e]; }
+    if (Lr < Lc) { cur = r; lnsImproved++; return true; }
+    return false;
 }

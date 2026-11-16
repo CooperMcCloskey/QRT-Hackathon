@@ -1,0 +1,202 @@
+# Masyu: Astra implementation plan and comparison rationale
+
+## Recommendation and strength of evidence
+
+Use a compiled, incremental constraint solver with seven-state cell domains, explicit pearl propagation, reversible path connectivity, and constraint-directed backtracking. Find a valid loop first. Then improve its length with bounded branch-and-bound and, when global search stalls, exact local rerouting. Stop according to the actual quality-versus-runtime formula.
+
+This is my recommended candidate for the best combination of speed, score, and implementation efficiency under the single-file, standard-library constraint. It is NOT a proven fastest solver. Correctness, pruning safety, operation counts, and score trade-offs can be proved from the statement. Relative wall-clock performance and hidden-test scores require implementations and measurements. No benchmark results are invented below.
+
+This document contains a plan, not implementation code. Numerical tables are mathematical consequences of the statement, not measured contest results.
+
+## Repository evidence and comparison baseline
+
+Sources: statement.md, notes.md, check.py, gen.py, sol_v1.cpp, ../AGENTS.md, ../templates/, ../tools/run_tests.py, ../tools/board.py, and the practice example.
+
+The repository changed between the earlier review and this document. It now contains sol_v1.cpp, an independent checker, a generator, and 33 input files: one sample and 32 generated cases. They were absent during the earlier review. None of those files is modified by this proposal.
+
+The inspected sol_v1.cpp already uses edge assignments, queued degree/pearl propagation, reversible endpoint bookkeeping, and DFS. It then uses face-flip simulated annealing, saving valid improvements. Its initial DFS deadline is 0.3 seconds, annealing ends at 0.85 seconds, and its later feasibility search can run to 8.5 seconds. Those are configured deadlines, not measured runtimes. If no valid answer is found, it can output its starting rectangle, which is not generally a valid Masyu answer.
+
+Accordingly, the proposed algorithm is not claiming that existing propagation or endpoint tracking is novel. The meaningful comparisons are stronger shape-domain propagation, branching quality, safe length bounds, improvement method, and stopping policy. Cell domains must earn their place against the existing edge representation through an ablation experiment; compactness alone does not prove that they win.
+
+The current generator constructs a loop and adds compatible pearls. Its construction length is an upper bound on the optimum, not a proven reference optimum. Its density parameter controls pearl sampling on eligible loop cells; it is not the fraction of all board cells containing pearls. Record actual pearl count and density in future comparisons.
+
+## 1. Exact model with small, fixed-size domains
+
+For every cell, maintain a subset of seven output states: unused, horizontal, vertical, and four corners. Represent this subset in one byte. A white pearl initially permits only horizontal and vertical; a black pearl only corners. Remove all states that point outside the board.
+
+For each adjacent pair, impose reciprocal edge agreement: both shapes use the common edge, or neither does. Precompute compatibility using the direction and neighbouring domain. There are only 128 possible seven-bit domains and four directions, so a table of 4 × 128 = 512 one-byte supported-state masks suffices for this binary edge constraint. This table alone does not enforce pearl rules.
+
+Add the actual pearl constraints:
+
+- Black: a corner at the pearl, with each of its two connected neighbours straight in the appropriate direction.
+- White: a straight shape at the pearl, with at least one of its two connected neighbours a corner. This is an OR constraint over two neighbours, conditional on orientation. Do not replace it with two independent requirements that both neighbours turn.
+
+Remove any state without support in each affected local constraint. Pearl constraints involve a fixed number of cells with domains of size at most seven; their evaluation has a constant-size bound independent of board dimensions.
+
+Proof of local-model correctness: every legal output uses exactly these states and satisfies these constraints. Conversely, reciprocal edges give every occupied cell exactly two distinct incident edges; pearl constraints give exactly the specified local white/black behaviour. A completed assignment therefore consists of disjoint simple cycles with correct pearl behaviour. One global connectivity condition is still necessary to make it exactly one cycle.
+
+## 2. Incremental propagation and undo
+
+Keep a deduplicated queue of constraints affected by domain changes. Process it until no domain changes or a contradiction occurs. Maintain a trail of changed values and restore only entries after the decision marker on backtracking.
+
+Avoid a full board copy for every decision, repeated full-board propagation scans, dynamic allocation inside the search loop, and per-node reconstruction of output strings. Use flat arrays and preallocated buffers. These are proposed engineering choices, not quantified speedups.
+
+At most six state removals per cell can occur on a consistent root-to-leaf branch; allowing the final contradiction gives at most seven. Each removal affects a constant number of local constraints. Consequently, local propagation work along one monotone descent is O(N) with fixed-size local constraint checks. This is not O(N) for the entire search: backtracking can repeat work in exponentially many branches.
+
+The trail saves O(k) updates and undo work for a decision that changes k entries; copying domains would touch N entries regardless of k. For illustration, at N = 2,500, a decision affecting 25 cell domains touches 100 times fewer domain entries than copying all 2,500. That is an entry-count comparison, not a 100× runtime claim; trail entries and auxiliary updates have their own cost.
+
+## 3. Exploit degree two for cheap connectivity
+
+The graph of forced selected edges has maximum degree two. Before a cycle closes, every nontrivial component is a path. Maintain the opposite endpoint and component summaries at each path endpoint, with reversible changes.
+
+Adding an edge between two different paths joins their outer endpoints. Adding an edge between the endpoints of the same path closes a cycle. Endpoint merging and closure detection require O(1) bookkeeping per inserted edge. This is a refinement of the earlier generic rollback union-find recommendation: degree-two paths permit a simpler specialized structure. The existing baseline already exploits this property.
+
+Reject a closed cycle if any pearl or any other forced occupied cell lies outside it. If all required cells are on that cycle, attempt to make every outside cell unused, propagate, and validate the complete result. Count forced occupied cells without selected edges too; tracking only selected-edge totals can miss such obligations in a domain-based solver.
+
+Proof: every vertex on a closed cycle already has degree two, so no later edge can attach an outside component without violating degree two. A cycle missing a required cell cannot extend to a legal single loop. Conversely, an all-pearl cycle with every outside cell unused is valid if its local rules pass.
+
+Periodically construct an over-approximation of possible edges and flood-fill it. All required occupied cells must lie in one connected component. Failure proves impossibility. Success does not prove feasibility, because the possible edges need not be mutually compatible. Run this O(N + E) check selectively; doing it after every tiny update may cost more than it saves.
+
+## 4. Feasibility before optimization
+
+Choose an unresolved variable with a small domain, prioritizing constrained pearls, forced-path endpoints, and recent conflict locations. Maintain candidate information incrementally where practical instead of scanning all 2,500 cells at every node.
+
+Order alternatives toward connecting required components with few new cells. Use geometry as an ordering heuristic only: shortest routes can violate pearl rules or block other routes. Do not prune based on a guessed pearl visit order, a guessed maximum detour, or an assumption that the loop stays inside the pearl bounding box.
+
+Once found, copy a complete validated loop into a separate incumbent buffer. Never replace it with a state containing a pearl violation. Temporary infeasible search states are acceptable; invalid final output is not.
+
+Completeness proof without a time limit: branching partitions each chosen domain into exhaustive alternatives; local propagation removes only unsupported states; connectivity pruning removes only impossible completions. The finite search therefore eventually finds a valid assignment when one exists. This proof assumes no permanently discarded branches from restarts or heuristic cutoffs.
+
+This does not guarantee a first answer within ten seconds. Solvability is an existence promise, not a runtime bound. There is no universal valid rectangle or other trivial fallback supplied by the problem.
+
+## 5. Shortening with safe bounds
+
+Let L_best be the incumbent length. Search only for strictly shorter solutions. For the current branch, let F be the set of cells forced occupied, including every pearl. Let F_black and F_white denote checkerboard colours, unrelated to pearl colour.
+
+Use the following lower bounds:
+
+1. |F|.
+2. 2 × max(|F_black|, |F_white|).
+3. 2 × (maximum required row − minimum required row + maximum required column − minimum required column).
+
+Use the maximum, never their sum. Round a lower bound up to an even number if needed. Prune when it is at least L_best.
+
+Proof of bound 1: all forced cells must occur in the final loop.
+
+Proof of bound 2: each grid step changes checkerboard colour. A closed cycle alternates colours and therefore uses equally many cells of each colour. If one colour already needs k cells, total length is at least 2k.
+
+Proof of bound 3: a closed walk visiting both extreme columns requires at least the column span in each horizontal direction. Similarly, it requires the row span in each vertical direction. Adding these four necessary movements gives the bound. A simple cycle has as many edges as occupied cells, so the edge bound is a length bound.
+
+Proof of safe pruning: every completion of a branch is at least its lower bound. If this cannot improve the incumbent, omitting the branch cannot remove a strictly better solution. Exhaustive completion of the bounded search certifies optimality; interruption does not.
+
+Do not spend the time budget proving optimality when the scoring formula rewards an earlier answer more. If the incumbent meets a valid global lower bound, its optimality is already established and search should stop.
+
+For difficult sparse cases, fix everything outside a selected region and solve for a shorter interior replacement. Preserve all crossing edges and account for the paths through the fixed exterior when checking connectivity. Recheck pearl constraints that straddle the region boundary. Fully validate a candidate before saving it. This permits coordinated changes that may be inaccessible through a sequence of immediately improving single-face flips.
+
+Local rerouting is not globally complete. The best region sizes and the choice between this method and the existing annealing phase are empirical questions. Cheap valid face-flip improvements may be retained if they outperform regional search on the comparison suite.
+
+## 6. Concrete size and complexity numbers
+
+For a 50 × 50 board:
+
+| Quantity | Exact count or raw storage |
+|---|---:|
+| Cells N | 2,500 |
+| Undirected grid edges E = R(C−1) + (R−1)C | 4,900 |
+| Directed adjacency checks in one complete pass | 9,800 |
+| One-byte cell domains | 2,500 bytes |
+| One-byte edge states, if maintained | 4,900 bytes |
+| Four 32-bit neighbour entries per cell | 40,000 bytes |
+| Binary edge-support table described above | 512 bytes |
+| Complete incumbent, one byte per cell | 2,500 bytes |
+| Maximum local-domain removals per descent, including contradiction | 17,500 |
+
+These are component sizes, not total process memory. Queues, trail records, path summaries, stack frames, runtime, and allocator overhead add storage. A disciplined design has O(N + E) live state along one search branch; an unbounded learned-clause store would change that statement and is not part of this plan.
+
+Unpruned state enumeration has up to 7^2,500 assignments; even just 100 independent binary choices give 2^100 ≈ 1.27 × 10^30 alternatives. Search-tree reduction is essential. Small board storage does not imply an easy search problem.
+
+Use C++17 if supported, or C with the supplied function interface. Preserve the actual judge wrapper when available; statement.md currently ends at a partial main declaration. Compiled flat-array operations are a sensible fit for this workload, but no specific speed ratio against Python is asserted without measurement.
+
+## 7. Score-aware stopping: derived numerical evidence
+
+Write a = s × L_ref and v(T) = 0.5 + 0.5 exp(−max(0,T−1)/5). For a valid answer the normalized score is min(1,a/L)^2 × v(T).
+
+The following values are derived analytically from that expression. They are not scores measured for an implementation.
+
+| Total runtime T | Speed multiplier v(T) | Length reduction needed to beat the same case's unsaturated answer at T = 1 |
+|---|---:|---:|
+| At most 1 second | 1.000000 | Any strict improvement |
+| 2 seconds | 0.909365 | More than 4.64% |
+| 3 seconds | 0.835160 | More than 8.61% |
+| 5 seconds | 0.724664 | More than 14.87% |
+| 7.5 seconds | 0.636266 | More than 20.23% |
+
+Derivation: when both qualities are below the cap, a later answer (L2,T2) beats an earlier one (L1,T1) exactly when L2/L1 < sqrt(v(T2)/v(T1)). The unknown reference a cancels. If the later answer reaches the cap, evaluate the capped formula; the uncapped inequality is not sufficient. In particular, once quality is already capped, extra runtime can never help.
+
+The length-only multiplier, for s = 1, illustrates why returning a fast but excessively long answer also fails:
+
+| L / L_ref | Quality multiplier |
+|---|---:|
+| 1.00 | 1.000000 |
+| 1.10 | 0.826446 |
+| 1.20 | 0.694444 |
+| 1.25 | 0.640000 |
+| 1.50 | 0.444444 |
+
+For s = 0.9, matching L_ref gives quality 0.81; reaching 0.9 L_ref gives quality 1. These follow directly from the statement.
+
+At 7.5 seconds even quality 1 is multiplied by about 0.6363. Thus using the repository's safety deadline on every case would prevent a greater-than-70% aggregate result even if every answer had maximum quality. The deadline is a ceiling, not a target. Some hard cases can still justify that runtime when the alternative is no valid answer.
+
+More precisely, v(T) > 0.70 requires T < 1 − 5 ln(0.4), approximately 5.581 seconds, even at maximum quality. This is a per-case ceiling; the contest's aggregate target does not require every individual case to exceed 70%.
+
+Policy: target completion before one second with an empirically calibrated margin for validation and output. If no valid answer exists, prioritize feasibility until the safety deadline. If an answer exists, continue past one second only when measured improvement behaviour justifies the expected score loss. Clock checks must occur within long propagation and connectivity work as well as between search nodes.
+
+Saving an early incumbent does not save its earlier runtime: the judge charges the total process runtime even if the solver eventually outputs that old answer. Therefore unconditional improvement attempts can reduce the score without changing the output.
+
+The stopping decision is predictive, not a theorem about future search progress. Use held-out measurements of improvement frequency and size to calibrate it; a recent lucky improvement does not guarantee another one.
+
+## 8. Why this is the leading candidate, and what can beat it
+
+| Alternative | Reason to prefer the proposed starting point | Limitation of the claim |
+|---|---|---|
+| Enumerating whole loops from one pearl | Local constraints can prune without committing to a complete traversal order; forced components are handled simultaneously | A highly constrained path-growing solver may still be very effective |
+| Annealing from an arbitrary rectangle | Exact constraints target validity directly; dense pearl requirements can be difficult to repair through local moves | Annealing can be excellent for shortening after feasibility, as the baseline attempts |
+| Always running exact shortest-loop search to the deadline | The runtime multiplier penalizes expensive proof and failed improvement attempts | Cheap optimality certificates should still be used |
+| General SAT or integer programming | A specialized implementation fits the standard-library, single-file assumption and exploits degree-two paths directly | Mature clause learning may outperform this DFS; no universal dominance is asserted |
+| Row-frontier dynamic programming | The supplied maximum board has frontier width 50, making connectivity-state growth a concern | Narrow rectangles can favour frontier methods; benchmark separately |
+| Current edge-based sol_v1.cpp | Domain filtering, better branching, length pruning, and score-aware improvement may reduce wasted search | Baseline already has propagation and O(1) endpoint tracking; representation changes alone prove nothing |
+
+The case for this approach is structural: directly encode validity, avoid impossible subloops early, make each local update cheap, retain only validated answers, and pay for optimization only when the objective supports it. It is not a claim that one heuristic dominates on every hidden puzzle.
+
+## 9. Required comparison to establish “fastest” and “highest score”
+
+Keep implementation versions frozen during comparisons. Use the same compiler settings, machine, time allowance, inputs, and independent checker. Include total process runtime, not only time inside the search. Do not run contestants concurrently during timing.
+
+Measure:
+
+- Valid-answer rate and timeout count: invalid answers contribute zero.
+- Time to first valid loop.
+- Final length and total runtime per test.
+- Median, high-percentile, and maximum runtime, separated by size and actual pearl density.
+- Search nodes, propagated removals, connectivity-pruned branches, and improvement frequency, using instrumentation that does not distort the final timing comparison.
+- The actual scoring formula wherever a verified reference and s are available.
+
+Use ../tools/run_tests.py for official local measurements as required by the repository protocol. Its existing “rel” is a linear best-observed-length ratio and excludes Masyu's squared quality and smooth runtime penalty. check.py currently returns loop length. Neither output by itself establishes the contest score. Unknown hidden references prevent claiming a measured hidden-test score.
+
+With no exact reference, publish raw validity/length/runtime and label any best-known-reference aggregate explicitly as a proxy. For two valid unsaturated answers on the same case, v(T)/L^2 gives the exact relative ranking because a^2 cancels; this does not establish a cross-case total because references and caps differ.
+
+The current 32 generated cases cover eight dimensions and four generator density settings. They are a useful start, not enough evidence of hidden-distribution superiority. Add independent seeds and generators, narrow rectangles, boundary pearls, nearly forced dense cases, sparse two-pearl cases, and cases requiring substantial rerouting. Generate from known valid loops, then verify those witness loops independently. Do not label randomly scattered, potentially unsolvable pearls as valid contest tests.
+
+Use repeated timing trials and additional fixed random seeds for stochastic solvers, reporting all runs rather than the best run. Separate tuning cases from held-out cases. Obtain exact references on tractable small boards by an independent exhaustive method; a generating witness only supplies a feasible upper bound.
+
+Compare incrementally: current baseline; stronger local propagation; improved branching; length bounds; regional rerouting versus annealing; adaptive stopping. This isolates whether each additional feature saves more search than it costs.
+
+Acceptance criterion: prefer higher measured aggregate task score on representative held-out tests, counting every failure as zero, then use runtime and memory to distinguish similarly scoring candidates. Report regressions by test group. Do not select by raw iterations per second or the shortest single output.
+
+## What is proved and what remains to be measured
+
+Proved here: exactness of the local model plus connectivity, safety of premature-cycle pruning, safety of the stated length bounds, completeness of exhaustive search under the stated assumptions, constant-time endpoint merging, bounded local-state sizes, and the score/runtime calculations.
+
+Not proved: finishing every instance before the deadline, outperforming the existing solver, superiority of cell domains over edge domains, the best search-region size, or the highest hidden-test score. Those require comparative measurements.
+
+This plan is the strongest justified recommendation from the problem structure and repository evidence. Calling it conclusively “the fastest” before those measurements would turn an engineering hypothesis into an unsupported claim.

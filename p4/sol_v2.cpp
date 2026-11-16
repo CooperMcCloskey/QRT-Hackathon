@@ -540,6 +540,57 @@ int main() {
             sa::run(best, bestL, max(0.9, tsat + 0.3), W, TS, TE);
         }
         cerr << "tsat=" << tsat << " ";
+    } else if (mode == "full" || mode == "") {
+        int wmin = getenv("WMIN") ? atoi(getenv("WMIN")) : 3, wmax = getenv("WMAX") ? atoi(getenv("WMAX")) : 8;
+        long long cl = getenv("CL") ? atoll(getenv("CL")) : 500;
+        double tend = getenv("TEND") ? atof(getenv("TEND")) : 0.9;
+        double tsa = getenv("TSA") ? atof(getenv("TSA")) : 0.3;
+        vector<char> r = satSolve(9.0);
+        double tsat = elapsed();
+        if (!r.empty()) { best = r; bestL = 0; for (int e = 0; e < E; e++) bestL += best[e]; }
+        int satL = bestL;
+        // SA from the border rectangle
+        sa::setState(start);
+        sa::run(best, bestL, max(tsa, elapsed() + 0.05), W, TS, TE);
+        int saL = bestL;
+        if (!best.empty()) {
+            vector<char> cur = best;
+            int fails = 0;
+            while (elapsed() < tend) {
+                int e0;
+                do { e0 = rndi(E); } while (!cur[e0]);
+                int x = eu[e0];
+                int grow = min(fails / 30, 6);
+                int h = wmin + grow + rndi(wmax - wmin + 1), w = wmin + grow + rndi(wmax - wmin + 1);
+                int r0 = max(0, x / C - rndi(h)), c0 = max(0, x % C - rndi(w));
+                int r1 = min(R - 1, r0 + h - 1), c1 = min(C - 1, c0 + w - 1);
+                if (lnsStep(cur, r0, r1, c0, c1, cl, tend)) fails = 0; else fails++;
+            }
+            best = cur; bestL = 0; for (int e = 0; e < E; e++) bestL += best[e];
+        }
+        cerr << "satL=" << satL << " saL=" << saL << " tsat=" << tsat << " tried=" << lnsTried << " impr=" << lnsImproved << " unsat=" << lnsUnsat << " ";
+    } else if (mode == "lns") {
+        vector<char> r = satSolve(9.0);
+        double tsat = elapsed();
+        int wmin = getenv("WMIN") ? atoi(getenv("WMIN")) : 3, wmax = getenv("WMAX") ? atoi(getenv("WMAX")) : 8;
+        long long cl = getenv("CL") ? atoll(getenv("CL")) : 500;
+        double tend = getenv("TEND") ? atof(getenv("TEND")) : 0.9;
+        if (!r.empty()) {
+            vector<char> cur = r;
+            while (elapsed() < tend) {
+                // random loop cell
+                vector<int> cells;
+                int e0;
+                do { e0 = rndi(E); } while (!cur[e0]);
+                int x = eu[e0];
+                int h = wmin + rndi(wmax - wmin + 1), w = wmin + rndi(wmax - wmin + 1);
+                int r0 = max(0, x / C - rndi(h)), c0 = max(0, x % C - rndi(w));
+                int r1 = min(R - 1, r0 + h - 1), c1 = min(C - 1, c0 + w - 1);
+                lnsStep(cur, r0, r1, c0, c1, cl, tend);
+            }
+            best = cur; bestL = 0; for (int e = 0; e < E; e++) bestL += best[e];
+        }
+        cerr << "tsat=" << tsat << " tried=" << lnsTried << " impr=" << lnsImproved << " unsat=" << lnsUnsat << " ";
     } else if (mode == "sa") {
         sa::setState(start);
         sa::run(best, bestL, 0.85, W, TS, TE);
