@@ -98,7 +98,7 @@ def main():
 
     if not os.path.exists("check_astra.py"):
         sys.exit("No check.py here. Run this from inside the problem folder.")
-    tests = sorted(glob.glob(args.tests))
+    tests = sorted({p for pattern in args.tests.split(",") for p in glob.glob(pattern)})
     if not tests:
         sys.exit(f"No tests match {args.tests}")
 

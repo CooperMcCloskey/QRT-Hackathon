@@ -1,4 +1,7 @@
 // ------------------------------------------------------------------ CDCL SAT
+static vector<char> reqP, bldP;   // pearls the loop must contain / pearls whose rules are encoded
+static int nReq = 0;
+static void allPearlsReq() { reqP = isPearl; bldP = isPearl; nReq = nPearls; }
 namespace cdcl {
 static int nv;
 static vector<int> arena;                 // clause literals
@@ -36,8 +39,19 @@ static int hpop() { int v = heap[0]; int last = heap.back(); heap.pop_back(); hp
 
 static inline int litVal(int l) { int a = asg[l >> 1]; return a < 0 ? -1 : (a ^ (l & 1)); }
 static inline int level() { return trailLim.size(); }
+// native at-most-K over a var set (lazy reasons, reason id -2)
+static bool cardOn = false;
+static int cardK = 0, cardCnt = 0;
+static vector<int> cardVars, tpos;
+static vector<char> cardIn, counted;
+static vector<int> cardBuf;
 static inline void enqueue(int l, int r) {
-    int v = l >> 1; asg[v] = !(l & 1); lvl[v] = level(); reason[v] = r; trailv.push_back(l);
+    int v = l >> 1; asg[v] = !(l & 1); lvl[v] = level(); reason[v] = r; tpos[v] = trailv.size(); trailv.push_back(l);
+}
+static void buildCardReason(int p) {
+    cardBuf.clear(); cardBuf.push_back(p);
+    int tp = tpos[p >> 1];
+    for (int t : cardVars) if (counted[t] && tpos[t] < tp) cardBuf.push_back(2 * t + 1);
 }
 
 static void init(int n) {
@@ -47,6 +61,7 @@ static void init(int n) {
     watches.resize(2 * n);
     asg.assign(n, -1); lvl.assign(n, 0); reason.assign(n, -1); trailv.clear(); trailLim.clear();
     phase.assign(n, 0); act.assign(n, 0); seenv.assign(n, 0);
+    tpos.assign(n, 0); cardIn.assign(n, 0); counted.assign(n, 0); cardVars.clear(); cardOn = false; cardCnt = 0; cardK = 1 << 30;
     heap.clear(); hpos.assign(n, -1);
     for (int v = 0; v < n; v++) hinsert(v);
     qhead = 0; unsatFlag = false; varInc = 1; clInc = 1;
@@ -56,6 +71,7 @@ static void cancelUntil(int lv) {
     if (level() <= lv) return;
     for (int i = (int)trailv.size() - 1; i >= trailLim[lv]; i--) {
         int v = trailv[i] >> 1; phase[v] = asg[v]; asg[v] = -1; reason[v] = -1; hinsert(v);
+        if (counted[v]) { counted[v] = 0; cardCnt--; }
     }
     trailv.resize(trailLim[lv]); trailLim.resize(lv); qhead = trailv.size();
 }
@@ -88,6 +104,17 @@ static void addClause(vector<int> lits) {
 static int propagate() {
     while (qhead < (int)trailv.size()) {
         int p = trailv[qhead++];
+        if (cardOn && !(p & 1) && cardIn[p >> 1]) {
+            counted[p >> 1] = 1; cardCnt++;
+            if (cardCnt > cardK) {
+                int cr = cls.size();
+                cls.push_back({(int)arena.size(), 0, false, 0});
+                for (int t : cardVars) if (counted[t]) arena.push_back(2 * t + 1);
+                cls[cr].size = arena.size() - cls[cr].start;
+                return cr;
+            }
+            if (cardCnt == cardK) for (int u : cardVars) if (asg[u] < 0) enqueue(2 * u + 1, -2);
+        }
         int fl = p ^ 1;
         vector<int>& ws = watches[fl];
         size_t i = 0, j = 0, n = ws.size();
@@ -124,10 +151,10 @@ static void analyze(int confl, vector<int>& out, int& btlev) {
     out.clear(); out.push_back(-1);
     int pathC = 0, p = -1, idx = trailv.size() - 1;
     do {
-        Cl& c = cls[confl];
-        if (c.learnt) { c.act += clInc; }
-        int* L = &arena[c.start];
-        for (int k = (p == -1 ? 0 : 1); k < c.size; k++) {
+        const int* L; int csz;
+        if (confl == -2) { buildCardReason(p); L = cardBuf.data(); csz = cardBuf.size(); }
+        else { Cl& c = cls[confl]; if (c.learnt) { c.act += clInc; } L = &arena[c.start]; csz = c.size; }
+        for (int k = (p == -1 ? 0 : 1); k < csz; k++) {
             int q = L[k], v = q >> 1;
             if (!seenv[v] && lvl[v] > 0) {
                 seenv[v] = 1; bumpVar(v);
@@ -200,19 +227,19 @@ static bool cycleCheck() {
         int l = trailv[checkedUpTo];
         if (l & 1) continue;
         int e = l >> 1; if (e >= E) continue;
-        int start = eu[e], prevE = e, cur = ev[e], np = isPearl[start], len = 1;
+        int start = eu[e], prevE = e, cur = ev[e], np = reqP[start], len = 1;
         bool closed = false;
         cyc.clear(); cyc.push_back(start);
         while (true) {
             if (cur == start) { closed = true; break; }
-            np += isPearl[cur]; cyc.push_back(cur);
+            np += reqP[cur]; cyc.push_back(cur);
             int nx = -1;
             for (int d = 0; d < 4; d++) { int f = cedge[cur * 4 + d]; if (f >= 0 && f != prevE && asg[f] == 1) { nx = f; break; } }
             if (nx < 0) break;
             cur = (eu[nx] == cur) ? ev[nx] : eu[nx]; prevE = nx;
             if (++len > N) break;
         }
-        if (!closed || np == nPearls || np == 0) continue;
+        if (!closed || np == nReq || np == 0) continue;
         ++markStamp;
         for (int y : cyc) mark[y] = markStamp;
         hookClause.clear();
@@ -311,13 +338,13 @@ static void buildBase(int nvars) {
         }
         for (int a = 0; a < k; a++) for (int b = a + 1; b < k; b++) for (int c = b + 1; c < k; c++)
             addClause({Nn(S[a]), Nn(S[b]), Nn(S[c])});
-        if (isPearl[x]) { vector<int> c; for (int e : S) c.push_back(P(e)); addClause(c); }
+        if (bldP[x]) { vector<int> c; for (int e : S) c.push_back(P(e)); addClause(c); }
     }
     // pearl configs: at least one config holds (Tseitin-free via config literal OR):
     // encode with auxiliary? Use direct clauses instead.
     for (int pi = 0; pi < nPearls; pi++) {
         int p = pearls[pi];
-        if (!inBox(p, 3)) continue;
+        if (!inBox(p, 3) || !bldP[p]) continue;
         char t = G[p / C][p % C];
         if (t == 'B') {
             for (int ax = 0; ax < 2; ax++) {
@@ -385,8 +412,8 @@ static vector<char> solveLoop(double deadline) {
         int full = -1;
         bool anyCut = false;
         for (int id = 0; id < (int)cyc.size(); id++) {
-            int np = 0; for (int y : cyc[id]) np += isPearl[y];
-            if (np == nPearls) { full = id; break; }
+            int np = 0; for (int y : cyc[id]) np += reqP[y];
+            if (np == nReq) { full = id; break; }
             if (np == 0) continue;
             // cut on cycle's cell set
             vector<int> c;
@@ -410,8 +437,8 @@ static vector<char> solveLoop(double deadline) {
                         if (comp[y] == id && e >= 0 && on[e] && comp[nbr[y * 4 + 0]] == id) par ^= 1;
                     }
                 }
-                int inP = 0; for (int y = 0; y < N; y++) if (ins[y] && isPearl[y]) inP++;
-                if (inP > 0 && inP < nPearls) {
+                int inP = 0; for (int y = 0; y < N; y++) if (ins[y] && reqP[y]) inP++;
+                if (inP > 0 && inP < nReq) {
                     vector<int> c2;
                     for (int y = 0; y < N; y++) if (ins[y]) for (int d = 0; d < 4; d++) {
                         int e = cedge[y * 4 + d]; if (e < 0) continue;
@@ -465,7 +492,7 @@ static void atMostK(const vector<int>& xs, int K, int base) {
 
 // one LNS step on an arbitrary set of free cells (edges touching a free cell are free)
 static long long lnsTried = 0, lnsImproved = 0, lnsUnsat = 0;
-static bool lnsCells(vector<char>& cur, const vector<char>& freeCell, int r0, int r1, int c0, int c1, long long climit, double deadline) {
+static bool lnsCells(vector<char>& cur, const vector<char>& freeCell, int r0, int r1, int c0, int c1, long long climit, double deadline, bool useCard = true) {
     static vector<int> fr;
     static vector<char> isFree;
     fr.clear(); isFree.assign(E, 0);
@@ -473,15 +500,16 @@ static bool lnsCells(vector<char>& cur, const vector<char>& freeCell, int r0, in
     for (int e = 0; e < E; e++) {
         if (freeCell[eu[e]] || freeCell[ev[e]]) { isFree[e] = 1; fr.push_back(e); curFree += cur[e]; }
     }
-    if (curFree < 2) return false;
+    if (useCard && curFree < 2) return false;
     int K = curFree - 2;
     int n = fr.size();
-    int aux = (K > 0 && K < n) ? (n - 1) * K : 0;
     BR0 = r0; BR1 = r1; BC0 = c0; BC1 = c1;
-    buildBase(E + aux);
+    buildBase(E);
     for (int e = 0; e < E; e++) if (!isFree[e]) cdcl::addClause({2 * e + (cur[e] ? 0 : 1)});
     cdcl::checkedUpTo = cdcl::trailv.size();
-    atMostK(fr, K, E);
+    (void)n;
+    cdcl::cardOn = useCard; cdcl::cardK = K; cdcl::cardVars = fr;
+    for (int e : fr) cdcl::cardIn[e] = 1;
     for (int e = 0; e < E; e++) cdcl::phase[e] = cur[e];
     cdcl::conflLimit = climit;
     lnsTried++;
@@ -489,7 +517,7 @@ static bool lnsCells(vector<char>& cur, const vector<char>& freeCell, int r0, in
     if (r.empty()) { if (cdcl::unsatFlag) lnsUnsat++; return false; }
     int Lr = 0, Lc = 0;
     for (int e = 0; e < E; e++) { Lr += r[e]; Lc += cur[e]; }
-    if (Lr < Lc) { cur = r; lnsImproved++; return true; }
+    if (!useCard || Lr < Lc) { cur = r; lnsImproved++; return true; }
     return false;
 }
 static bool lnsStep(vector<char>& cur, int r0, int r1, int c0, int c1, long long climit, double deadline) {
@@ -535,4 +563,52 @@ static bool lnsStretch(vector<char>& cur, int len, int margin, long long climit,
         }
     }
     return lnsCells(cur, fc, r0, r1, c0, c1, climit, deadline);
+}
+
+// Repair a single-loop state with pearl violations into a valid loop, window by window.
+static bool pearlSat(const vector<char>& on, int pi) {
+    for (auto& L : pat[pi].cfg) {
+        bool ok = true;
+        for (auto& l : L) if (on[l.e] != l.v) { ok = false; break; }
+        if (ok) return true;
+    }
+    return false;
+}
+static long long repairCalls = 0;
+static bool repairLoop(vector<char>& cur, double deadline) {
+    vector<char> onLoop(N, 0);
+    for (int iter = 0; iter < 4 * nPearls + 50; iter++) {
+        if (elapsed() > deadline) return false;
+        fill(onLoop.begin(), onLoop.end(), 0);
+        for (int e = 0; e < E; e++) if (cur[e]) { onLoop[eu[e]] = 1; onLoop[ev[e]] = 1; }
+        vector<int> bad;
+        for (int pi = 0; pi < nPearls; pi++) if (!pearlSat(cur, pi)) bad.push_back(pi);
+        if (bad.empty()) { allPearlsReq(); return true; }
+        int pi = bad[rndi(bad.size())];
+        int p = pearls[pi], pr = p / C, pc = p % C;
+        bool fixed = false;
+        for (int rad = 3; !fixed; rad = rad * 3 / 2 + 1) {
+            if (rad > 2 * max(R, C)) break;
+            int r0 = max(0, pr - rad), r1 = min(R - 1, pr + rad), c0 = max(0, pc - rad), c1 = min(C - 1, pc + rad);
+            vector<char> fc(N, 0);
+            for (int r = r0; r <= r1; r++) for (int c = c0; c <= c1; c++) fc[r * C + c] = 1;
+            // required: satisfied on-loop pearls, plus every pearl in the window (+2 margin)
+            reqP.assign(N, 0); bldP.assign(N, 0); nReq = 0;
+            for (int pj = 0; pj < nPearls; pj++) {
+                int q = pearls[pj], qr = q / C, qc = q % C;
+                bool near = qr >= r0 - 2 && qr <= r1 + 2 && qc >= c0 - 2 && qc <= c1 + 2;
+                bool inWin = qr >= r0 && qr <= r1 && qc >= c0 && qc <= c1;
+                bool sat = pearlSat(cur, pj);
+                if (inWin || (onLoop[q] && sat)) { bldP[q] = 1; }
+                else if (near && !inWin) { bldP[q] = 0; }
+                if (inWin || onLoop[q]) { reqP[q] = 1; nReq++; }
+            }
+            repairCalls++;
+            if (lnsCells(cur, fc, r0, r1, c0, c1, 2000 + 20LL * rad * rad, deadline, false)) fixed = true;
+            else if (getenv("DBG")) cerr << "repair fail pearl " << pr << "," << pc << " rad " << rad << " unsat=" << cdcl::unsatFlag << " nReq=" << nReq << "\n";
+        }
+        if (!fixed) { allPearlsReq(); return false; }
+    }
+    allPearlsReq();
+    return false;
 }

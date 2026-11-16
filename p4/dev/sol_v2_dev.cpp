@@ -508,6 +508,7 @@ int main() {
     C = G[0].size();
     build();
     sa::prep();
+    allPearlsReq();
 
     vector<char> best;
     int bestL = 1 << 30;
@@ -556,6 +557,15 @@ int main() {
         vector<char> hint = sa::on;
         int satL = -1;
         double tsat = 0;
+        int repL = -1;
+        if (best.empty() && !getenv("NOREPAIR")) {
+            vector<char> rp = hint;
+            if (repairLoop(rp, 2.0)) {
+                repL = 0; for (int e = 0; e < E; e++) repL += rp[e];
+                best = rp; bestL = repL;
+            }
+            tsat = elapsed();
+        }
         if (best.empty() || getenv("SATALWAYS")) {
             vector<char> r = satSolve(8.0, getenv("NOHINT") ? nullptr : &hint);
             tsat = elapsed();
@@ -592,7 +602,7 @@ int main() {
             cerr << (cdcl::unsatFlag ? "PROVEN " : "notproven ");
             best = cur; bestL = 0; for (int e = 0; e < E; e++) bestL += best[e];
         }
-        cerr << "satL=" << satL << " saL=" << saL << " tsat=" << tsat << " tried=" << lnsTried << " impr=" << lnsImproved << " unsat=" << lnsUnsat << " ";
+        cerr << "repL=" << repL << " repCalls=" << repairCalls << " satL=" << satL << " saL=" << saL << " tsat=" << tsat << " tried=" << lnsTried << " impr=" << lnsImproved << " unsat=" << lnsUnsat << " ";
     } else if (mode == "lns") {
         vector<char> r = satSolve(9.0);
         double tsat = elapsed();
