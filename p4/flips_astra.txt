@@ -1,0 +1,42 @@
+    void faceImprove(double end){
+        vector<int> current(N);for(int x=0;x<N;x++)current[x]=shape[best[x]];
+        int index[16];fill(index,index+16,-1);for(int s=0;s<7;s++)index[shape[s]]=s;
+        int length=bestLen,stale=0;
+        auto legalPearl=[&](int x){
+            if(!pearl[x])return true;int m=current[x];if(!m)return false;
+            bool straight=m==5||m==10;if((pearl[x]==1)!=straight)return false;
+            int turns=0;for(int d=0;d<4;d++)if(m&(1<<d)){
+                int y=nb[x][d];if(y<0)return false;int n=current[y];turns+=n!=5&&n!=10;
+            }
+            return pearl[x]==1?turns>0:turns==0;
+        };
+        for(int iter=0;bestLen>lower;iter++){
+            if((iter&1023)==0&&(elapsed()>=end||stale>20000+20*N))break;
+            ++stale;
+            int r=random()%(R-1),c=random()%(C-1),a=r*C+c;
+            int cells[4]={a,a+1,a+C+1,a+C};
+            int m=0;m|=(current[a]&2)?1:0;m|=(current[a+1]&4)?2:0;
+            m|=(current[a+C]&2)?4:0;m|=(current[a]&4)?8:0;
+            if(!m||m==15||m==5||m==10)continue;
+            int count=__builtin_popcount((unsigned)m),delta=4-2*count;
+            if(delta>0&&(random()%1000)>=2)continue;
+            int toggles[4]={6,12,9,3},old[4];bool okay=true;
+            for(int k=0;k<4;k++){
+                old[k]=current[cells[k]];
+                int next=old[k]^toggles[k];if(index[next]<0){okay=false;break;}
+            }
+            if(!okay)continue;
+            for(int k=0;k<4;k++)current[cells[k]]^=toggles[k];
+            for(int x:cells){
+                if(!legalPearl(x))okay=false;
+                for(int y:nb[x])if(y>=0&&!legalPearl(y))okay=false;
+            }
+            if(!okay){for(int k=0;k<4;k++)current[cells[k]]=old[k];continue;}
+            length+=delta;
+            if(length<bestLen){
+                vector<int> candidate(N);for(int x=0;x<N;x++)candidate[x]=index[current[x]];
+                if(validate(candidate)){bestLen=length;best=move(candidate);stale=0;}
+            }
+            if(length>bestLen+6){for(int x=0;x<N;x++)current[x]=shape[best[x]];length=bestLen;}
+        }
+    }

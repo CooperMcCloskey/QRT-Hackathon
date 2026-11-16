@@ -432,9 +432,10 @@ static vector<char> solveLoop(double deadline) {
     }
 }
 
-static vector<char> satSolve(double deadline) {
+static vector<char> satSolve(double deadline, const vector<char>* hint = nullptr) {
     BR0 = 0; BR1 = 1 << 20; BC0 = 0; BC1 = 1 << 20;
     buildBase(E);
+    if (hint) for (int e = 0; e < E; e++) cdcl::phase[e] = (*hint)[e];
     cdcl::conflLimit = (long long)4e18;
     return solveLoop(deadline);
 }
@@ -462,17 +463,15 @@ static void atMostK(const vector<int>& xs, int K, int base) {
     addClause({Nl(xs[n - 1]), Nl(S(n - 2, K - 1))});
 }
 
-// one LNS step: re-route inside window [r0,r1]x[c0,c1] with strictly fewer edges
+// one LNS step on an arbitrary set of free cells (edges touching a free cell are free)
 static long long lnsTried = 0, lnsImproved = 0, lnsUnsat = 0;
-static bool lnsStep(vector<char>& cur, int r0, int r1, int c0, int c1, long long climit, double deadline) {
-    vector<int> fr;
-    vector<char> isFree(E, 0);
+static bool lnsCells(vector<char>& cur, const vector<char>& freeCell, int r0, int r1, int c0, int c1, long long climit, double deadline) {
+    static vector<int> fr;
+    static vector<char> isFree;
+    fr.clear(); isFree.assign(E, 0);
     int curFree = 0;
     for (int e = 0; e < E; e++) {
-        int u = eu[e], v = ev[e];
-        int ur = u / C, uc = u % C, vr = v / C, vc = v % C;
-        bool in = (ur >= r0 && ur <= r1 && uc >= c0 && uc <= c1) || (vr >= r0 && vr <= r1 && vc >= c0 && vc <= c1);
-        if (in) { isFree[e] = 1; fr.push_back(e); curFree += cur[e]; }
+        if (freeCell[eu[e]] || freeCell[ev[e]]) { isFree[e] = 1; fr.push_back(e); curFree += cur[e]; }
     }
     if (curFree < 2) return false;
     int K = curFree - 2;
@@ -483,7 +482,6 @@ static bool lnsStep(vector<char>& cur, int r0, int r1, int c0, int c1, long long
     for (int e = 0; e < E; e++) if (!isFree[e]) cdcl::addClause({2 * e + (cur[e] ? 0 : 1)});
     cdcl::checkedUpTo = cdcl::trailv.size();
     atMostK(fr, K, E);
-    // phase: start from the current solution
     for (int e = 0; e < E; e++) cdcl::phase[e] = cur[e];
     cdcl::conflLimit = climit;
     lnsTried++;
@@ -493,4 +491,48 @@ static bool lnsStep(vector<char>& cur, int r0, int r1, int c0, int c1, long long
     for (int e = 0; e < E; e++) { Lr += r[e]; Lc += cur[e]; }
     if (Lr < Lc) { cur = r; lnsImproved++; return true; }
     return false;
+}
+static bool lnsStep(vector<char>& cur, int r0, int r1, int c0, int c1, long long climit, double deadline) {
+    static vector<char> fc;
+    fc.assign(N, 0);
+    for (int r = r0; r <= r1; r++) for (int c = c0; c <= c1; c++) fc[r * C + c] = 1;
+    return lnsCells(cur, fc, r0, r1, c0, c1, climit, deadline);
+}
+// loop order of cells
+static vector<int> loopOrder(const vector<char>& cur) {
+    vector<int> ord;
+    int s = -1;
+    for (int e = 0; e < E; e++) if (cur[e]) { s = eu[e]; break; }
+    if (s < 0) return ord;
+    int prev = -1, x = s;
+    do {
+        ord.push_back(x);
+        int nx = -1;
+        for (int d = 0; d < 4; d++) { int f = cedge[x * 4 + d]; if (f >= 0 && cur[f] && nbr[x * 4 + d] != prev) { nx = nbr[x * 4 + d]; break; } }
+        if (nx < 0) break;
+        prev = x; x = nx;
+        if ((int)ord.size() > N) break;
+    } while (x != s);
+    return ord;
+}
+static bool lnsStretch(vector<char>& cur, int len, int margin, long long climit, double deadline) {
+    vector<int> ord = loopOrder(cur);
+    int L = ord.size();
+    if (L < 4) return false;
+    len = min(len, L);
+    int st = rndi(L);
+    static vector<char> fc;
+    fc.assign(N, 0);
+    int r0 = R, r1 = -1, c0 = C, c1 = -1;
+    for (int i = 0; i < len; i++) {
+        int x = ord[(st + i) % L], xr = x / C, xc = x % C;
+        for (int dr = -margin; dr <= margin; dr++) for (int dc = -margin; dc <= margin; dc++) {
+            if (abs(dr) + abs(dc) > margin) continue;
+            int rr = xr + dr, cc = xc + dc;
+            if (rr < 0 || rr >= R || cc < 0 || cc >= C) continue;
+            fc[rr * C + cc] = 1;
+            r0 = min(r0, rr); r1 = max(r1, rr); c0 = min(c0, cc); c1 = max(c1, cc);
+        }
+    }
+    return lnsCells(cur, fc, r0, r1, c0, c1, climit, deadline);
 }

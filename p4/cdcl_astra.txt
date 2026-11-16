@@ -1,0 +1,84 @@
+// Two-watched-literal CDCL engine; all learned clauses remain local to this solve.
+class CDCL {
+    struct Clause { vector<int> l; };
+    int n; vector<Clause> cs; vector<vector<int>> watch;
+    vector<int> val,lev,reason,trail,limits; vector<unsigned char> phase,seen;
+    vector<double> act; priority_queue<pair<double,int>> heap;
+    int head=0; double inc=1; bool okay=true;
+    chrono::steady_clock::time_point origin;
+    double deadline;
+    int value(int p)const{return val[p>>1]<0?-1:(val[p>>1]^(p&1));}
+    void put(int p,int why){int x=p>>1;val[x]=1-(p&1);phase[x]=val[x];lev[x]=limits.size();reason[x]=why;trail.push_back(p);}
+    void bump(int x){act[x]+=inc;heap.emplace(act[x],x);}
+    int store(vector<int> a){int id=cs.size();cs.push_back({move(a)});if(cs[id].l.size()>1){watch[cs[id].l[0]].push_back(id);watch[cs[id].l[1]].push_back(id);}return id;}
+    int propagate(){
+        while(head<(int)trail.size()){
+            int bad=trail[head++]^1;auto& list=watch[bad];size_t out=0;
+            for(size_t i=0;i<list.size();i++){
+                int id=list[i];auto& a=cs[id].l;
+                if(a[0]==bad)swap(a[0],a[1]);
+                if(value(a[0])==1){list[out++]=id;continue;}
+                size_t j=2;while(j<a.size()&&value(a[j])==0)++j;
+                if(j<a.size()){swap(a[1],a[j]);watch[a[1]].push_back(id);continue;}
+                list[out++]=id;
+                if(value(a[0])==0){while(++i<list.size())list[out++]=list[i];list.resize(out);return id;}
+                put(a[0],id);
+            }
+            list.resize(out);
+        }
+        return -1;
+    }
+    void cancel(int level){
+        if((int)limits.size()<=level)return;
+        int end=limits[level];for(int i=trail.size()-1;i>=end;i--){int x=trail[i]>>1;val[x]=-1;heap.emplace(act[x],x);}
+        trail.resize(end);head=min(head,end);limits.resize(level);
+    }
+    pair<vector<int>,int> analyze(int conflict){
+        vector<int> result(1,-1),touched;int paths=0,p=-1,index=trail.size()-1;
+        do {
+            for(int q:cs[conflict].l){int x=q>>1;if(x==(p>>1)||seen[x]||lev[x]==0)continue;
+                seen[x]=1;touched.push_back(x);bump(x);
+                if(lev[x]==(int)limits.size())++paths;else result.push_back(q);
+            }
+            while(!seen[trail[index]>>1])--index;
+            p=trail[index--];seen[p>>1]=0;--paths;conflict=reason[p>>1];
+        }while(paths>0);
+        result[0]=p^1;int back=0,pos=1;
+        for(int i=1;i<(int)result.size();i++)if(lev[result[i]>>1]>back){back=lev[result[i]>>1];pos=i;}
+        if(result.size()>1)swap(result[1],result[pos]);
+        for(int x:touched)seen[x]=0;
+        return {move(result),back};
+    }
+public:
+    CDCL(int count,chrono::steady_clock::time_point t,double dl):n(count),watch(2*n),val(n,-1),lev(n),reason(n,-1),phase(n,0),seen(n),act(n,0),origin(t),deadline(dl){}
+    void add(vector<int> a){
+        if(!okay)return;cancel(0);sort(a.begin(),a.end());vector<int>b;
+        for(int p:a){if(value(p)==1)return;if(value(p)==0)continue;if(!b.empty()&&b.back()==p)continue;if(!b.empty()&&b.back()==(p^1))return;b.push_back(p);}
+        if(b.empty()){okay=false;return;}
+        for(int p:b)act[p>>1]+=0.001;
+        int id=store(move(b));if(cs[id].l.size()==1)put(cs[id].l[0],id);
+    }
+    void initialize(){for(int x=0;x<n;x++)heap.emplace(act[x],x);}
+    int solve(){
+        if(!okay)return 0;
+        int conflicts=0,nextRestart=128;
+        for(;;){
+            if((conflicts&31)==0&&chrono::duration<double>(chrono::steady_clock::now()-origin).count()>=deadline)return -1;
+            int c=propagate();
+            if(c>=0){
+                if(limits.empty()){okay=false;return 0;}
+                ++conflicts;auto learned=analyze(c);cancel(learned.second);
+                int id=store(move(learned.first));put(cs[id].l[0],id);inc*=1.0526315789473684;
+                if(inc>1e90){inc*=1e-90;for(double& a:act)a*=1e-90;heap={};for(int x=0;x<n;x++)if(val[x]<0)heap.emplace(act[x],x);}
+                if(conflicts>=nextRestart){cancel(0);nextRestart+=128+(nextRestart/3);}
+            }else{
+                int x=-1;
+                while(!heap.empty()){auto [a,v]=heap.top();heap.pop();if(val[v]<0&&a==act[v]){x=v;break;}}
+                if(x<0)return 1;
+                limits.push_back(trail.size());put(2*x+(phase[x]?0:1),-1);
+            }
+        }
+    }
+    bool selected(int x)const{return val[x]==1;}
+    void rootLevel(){cancel(0);}
+};

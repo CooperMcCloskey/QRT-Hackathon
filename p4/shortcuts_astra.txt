@@ -1,0 +1,40 @@
+    void shortcutImprove(double end){
+        int index[16];fill(index,index+16,-1);for(int s=0;s<7;s++)index[shape[s]]=s;
+        while(elapsed()<end){
+            vector<int> path;int first=-1;for(int x=0;x<N;x++)if(best[x]){first=x;break;}
+            int prev=-1,cur=first;
+            do{path.push_back(cur);int next=-1;for(int d=0;d<4;d++)if(shape[best[cur]]&(1<<d)){
+                    int y=nb[cur][d];if(y!=prev){next=y;break;}}
+                prev=cur;cur=next;
+            }while(cur!=first);
+            int L=path.size();vector<int> positions;for(int i=0;i<L;i++)if(pearl[path[i]])positions.push_back(i);
+            vector<pair<int,int>> gaps;for(int i=0;i<(int)positions.size();i++){
+                int j=(i+1)%positions.size(),distance=(positions[j]-positions[i]+L)%L;
+                if(distance>6)gaps.emplace_back(-distance,i);
+            }
+            sort(gaps.begin(),gaps.end());bool improved=false;
+            for(auto entry:gaps){
+                if(elapsed()>=end)break;
+                int i=entry.second,begin=positions[i]+2,finish=positions[i]-entry.first-2;
+                int a=path[begin%L],b=path[finish%L],old=finish-begin;
+                if(abs(a/C-b/C)+abs(a%C-b%C)>=old)continue;
+                vector<unsigned char> blocked(N);for(int x=0;x<N;x++)blocked[x]=best[x]!=0;
+                for(int k=begin;k<=finish;k++)blocked[path[k%L]]=0;
+                vector<int> pred(N,-1),distance(N,-1),q={a};distance[a]=0;
+                for(size_t h=0;h<q.size()&&distance[b]<0;h++){
+                    int x=q[h];if(distance[x]+1>=old)continue;
+                    for(int y:nb[x])if(y>=0&&!blocked[y]&&distance[y]<0){distance[y]=distance[x]+1;pred[y]=x;q.push_back(y);}
+                }
+                if(distance[b]<0||distance[b]>=old)continue;
+                vector<int> m(N);for(int x=0;x<N;x++)m[x]=shape[best[x]];
+                auto toggle=[&](int x,int y){int d=y==x-C?0:y==x+1?1:y==x+C?2:3;m[x]^=1<<d;m[y]^=1<<(d^2);};
+                for(int k=begin;k<finish;k++)toggle(path[k%L],path[(k+1)%L]);
+                for(int x=b;x!=a;x=pred[x])toggle(x,pred[x]);
+                vector<int> candidate(N);bool okay=true;for(int x=0;x<N;x++){candidate[x]=index[m[x]];if(candidate[x]<0)okay=false;}
+                if(okay&&validate(candidate)){
+                    bestLen+=distance[b]-old;best=move(candidate);improved=true;break;
+                }
+            }
+            if(!improved)break;
+        }
+    }
