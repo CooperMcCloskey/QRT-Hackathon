@@ -1,0 +1,1 @@
+{"required_words": ["ABCDEFG", "GFEDCBA", "CDE", "EDC", "A", "ABCDEFG"], "forbidden_words": ["GFA", "X", "Y", "Z", "GFEDCBAGFEDCBA"]}
