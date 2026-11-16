@@ -1,0 +1,5 @@
+.bin/
+__pycache__/
+template
+*.dSYM/
+next_browser_step.js

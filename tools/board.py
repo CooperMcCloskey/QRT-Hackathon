@@ -109,7 +109,10 @@ def render():
         top = best_local(versions)
         judge = versions[submitted]["judge"] if submitted else None
         note = ""
-        if top is None:
+        has_runs = any(e.get("type") == "run" for e in entries)
+        if top is None and not has_runs:
+            note = "judge scores only (no local checker)"
+        elif top is None:
             note = "NO VALID VERSION"
         elif submitted is None:
             note = "NOTHING SUBMITTED"
@@ -125,7 +128,7 @@ def render():
             f"{age(last):<12}{note}")
 
         details.append("")
-        details.append(f"{folder}   ({direction} is better)")
+        details.append(f"{folder}   ({direction + ' is better' if has_runs else 'judge scores'})")
         details.append(f"  {'version':<18}{'close':>6}{'failed':>8}{'slowest':>9}{'judge':>8}   run")
         for name, v in sorted(versions.items(), key=lambda kv: kv[1]["t"]):
             mark = "*" if name == submitted else " "
@@ -144,8 +147,8 @@ def record_judge(argv):
     if len(argv) != 2:
         sys.exit("usage: python3 ../tools/board.py judge <solution file> <judge score>")
     sol, score = argv[0], float(argv[1])
-    if os.path.abspath(os.getcwd()) == ROOT or not os.path.exists("check.py"):
-        sys.exit("Run this from inside the problem folder (the one with check.py).")
+    if os.path.abspath(os.getcwd()) == ROOT or not os.path.exists("statement.md"):
+        sys.exit("Run this from inside the problem folder (the one with statement.md).")
     with open("scores.jsonl", "a") as f:
         f.write(json.dumps({"type": "judge", "t": time.time(), "sol": sol, "score": score}) + "\n")
     print(f"recorded: {sol} scored {score:g} on the judge")

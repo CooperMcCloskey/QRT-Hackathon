@@ -1,0 +1,8 @@
+{
+  "selected_source": "sol_refined_CC44B484_v2.c",
+  "selection_basis": "User has no time for another run; choose latest all-data reconstruction with improved held-out coefficient prediction and previously successful scale 1.25.",
+  "judge_evaluated": false,
+  "local_compile_and_output_checks_passed": true,
+  "official_noiseless_score": null,
+  "best_previously_measured_backup": "final_best_measured.c"
+}
