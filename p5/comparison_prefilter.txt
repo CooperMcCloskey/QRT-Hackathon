@@ -1,0 +1,14 @@
+
+test  sol_pre4_base.cpp               sol_pre4_small.cpp              sol_pre4_large.cpp            
+t0    13.503       rel  44.4  0.15s   17.564       rel  57.8  0.17s   30.406       rel 100.0  0.16s 
+t1    11.271       rel  65.3  0.29s   9.113        rel  52.8  0.35s   17.266       rel 100.0  0.33s 
+t2    14.454       rel  67.5  0.35s   12.711       rel  59.3  0.45s   21.425       rel 100.0  0.41s 
+t3    10.772       rel  68.9  0.69s   15.629       rel 100.0  0.87s   13.827       rel  88.5  0.75s 
+t4    10.487       rel  82.0  0.99s   10.146       rel  79.4  1.33s   12.783       rel 100.0  1.06s 
+t5    10.562       rel  77.5  1.32s   11.067       rel  81.2  1.58s   13.624       rel 100.0  1.25s 
+t6    13.902       rel  89.1  1.49s   10.563       rel  67.7  1.61s   15.597       rel 100.0  1.53s 
+
+objective: max is better; time limit 2s
+sol_pre4_base.cpp              mean rel  70.7   slowest 1.49s   all valid and in time
+sol_pre4_small.cpp             mean rel  71.2   slowest 1.61s   all valid and in time
+sol_pre4_large.cpp             mean rel  98.4   slowest 1.53s   all valid and in time

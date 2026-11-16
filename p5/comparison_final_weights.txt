@@ -1,0 +1,22 @@
+
+test     sol_fast_compact_review.cpp     sol_fast_weight_0.7_review.cpp  sol_fast_weight_1.3_review.cpp
+normal2  14.592       rel  80.2  0.18s   16.223       rel  89.2  0.19s   18.197       rel 100.0  0.16s 
+normal4  16.182       rel  95.2  0.43s   17           rel 100.0  0.49s   15.182       rel  89.3  0.41s 
+normal6  14.504       rel 100.0  0.87s   13.575       rel  93.6  0.97s   11.882       rel  81.9  0.82s 
+normal8  11.266       rel 100.0  1.46s   10.746       rel  95.4  1.46s   10.675       rel  94.8  1.46s 
+t0       20.963       rel 100.0  0.14s   20.302       rel  96.8  0.16s   16.431       rel  78.4  0.15s 
+t1       10.911       rel  63.9  0.29s   17.086       rel 100.0  0.33s   11.99        rel  70.2  0.28s 
+t2       18.76        rel 100.0  0.34s   15.992       rel  85.2  0.39s   17.837       rel  95.1  0.36s 
+t3       15.433       rel 100.0  0.72s   15.315       rel  99.2  0.82s   12.769       rel  82.7  0.67s 
+t4       11.418       rel  86.2  0.94s   13.249       rel 100.0  1.15s   10.518       rel  79.4  0.95s 
+t5       11.938       rel  79.7  1.23s   14.972       rel 100.0  1.38s   11.938       rel  79.7  1.15s 
+t6       15.18        rel 100.0  1.43s   12.885       rel  84.9  1.45s   12.885       rel  84.9  1.41s 
+varied2  12.557       rel  81.4  0.71s   13.086       rel  84.8  0.81s   15.431       rel 100.0  0.64s 
+varied4  32.42        rel  96.7  0.96s   33.516       rel 100.0  1.08s   23.954       rel  71.5  0.89s 
+varied6  22.422       rel 100.0  1.45s   21.335       rel  95.2  1.46s   18.56        rel  82.8  1.45s 
+varied8  15.025       rel 100.0  1.45s   13.439       rel  89.4  1.46s   14.915       rel  99.3  1.45s 
+
+objective: max is better; time limit 2s
+sol_fast_compact_review.cpp    mean rel  92.2   slowest 1.46s   all valid and in time
+sol_fast_weight_0.7_review.cpp mean rel  94.2   slowest 1.46s   all valid and in time
+sol_fast_weight_1.3_review.cpp mean rel  86.0   slowest 1.46s   all valid and in time

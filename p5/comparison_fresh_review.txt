@@ -1,0 +1,15 @@
+
+test     sol_v3.cpp                      sol_selected3_compact_review.cpp  sol_ngram_large.cpp           
+normal2  10.215       rel  68.8  0.13s   14.592       rel  98.3  0.19s   14.85        rel 100.0  0.18s 
+normal4  17.636       rel 100.0  0.39s   16.182       rel  91.8  0.43s   17.045       rel  96.6  0.42s 
+normal6  12.38        rel  85.4  0.80s   14.504       rel 100.0  0.89s   11.716       rel  80.8  0.91s 
+normal8  9.329        rel  76.8  1.60s   11.455       rel  94.4  1.61s   12.14        rel 100.0  1.61s 
+varied2  8.623        rel  54.8  0.69s   12.557       rel  79.8  0.72s   15.734       rel 100.0  0.65s 
+varied4  21.016       rel  53.0  0.73s   32.42        rel  81.8  1.00s   39.641       rel 100.0  0.95s 
+varied6  22.01        rel  83.0  1.61s   22.535       rel  85.0  1.60s   26.509       rel 100.0  1.61s 
+varied8  8.24         rel  54.8  1.60s   15.025       rel 100.0  1.60s   14.695       rel  97.8  1.61s 
+
+objective: max is better; time limit 2s
+sol_v3.cpp                     mean rel  72.1   slowest 1.61s   all valid and in time
+sol_selected3_compact_review.cpp mean rel  91.4   slowest 1.61s   all valid and in time
+sol_ngram_large.cpp            mean rel  96.9   slowest 1.61s   all valid and in time

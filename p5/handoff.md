@@ -65,3 +65,7 @@ Valid C++ submission exists, but it only scores about 10-11% on my local tests. 
 - Largest tests run 1.5-1.6 s (internal cut-off `TLIM = 1.6`), about 12.6 MB memory.
 - Other schedules tried (all within noise or worse): -0.5/-1.0/-1.5 per pass, 12 vs 16 passes.
 - `sol_confidence_review.cpp` (another session) scores exactly the same as v3 locally.
+
+## Update 20:48 — recommended `sol_optimized.cpp`
+
+Standalone 48,684-byte submission. Mean local reconstruction improved from 13.031% to 16.595% over 19 document cases; 16 wins and 3 regressions. All 19 plus 3 edge cases valid and in time, worst observed about 1.46 s. Sanitizers and C++14 compilation passed. See `README_optimized.md` for measurements, limitations, and model provenance. `sol_v3.cpp` remains unchanged.

@@ -1,0 +1,25 @@
+
+test             sol_v3.cpp                      sol_optimized.cpp             
+holdout_normal3  12.345       rel  96.2  0.21s   12.828       rel 100.0  0.25s 
+holdout_normal7  12.22        rel  82.0  0.76s   14.898       rel 100.0  0.92s 
+holdout_varied3  17.793       rel  76.3  0.56s   23.31        rel 100.0  0.64s 
+holdout_varied7  12.827       rel 100.0  1.60s   12.497       rel  97.4  1.45s 
+normal2          10.215       rel  63.0  0.15s   16.223       rel 100.0  0.18s 
+normal4          17.636       rel 100.0  0.38s   17           rel  96.4  0.45s 
+normal6          12.38        rel  90.5  0.77s   13.674       rel 100.0  0.94s 
+normal8          9.329        rel  79.6  1.60s   11.715       rel 100.0  1.46s 
+t0               13.975       rel  68.8  0.13s   20.302       rel 100.0  0.15s 
+t1               11.691       rel  69.4  0.25s   16.847       rel 100.0  0.32s 
+t2               14.249       rel  83.7  0.30s   17.017       rel 100.0  0.36s 
+t3               10.145       rel  63.8  0.59s   15.903       rel 100.0  0.78s 
+t4               10.859       rel  82.5  0.83s   13.155       rel 100.0  1.09s 
+t5               11.32        rel  75.5  1.13s   15           rel 100.0  1.31s 
+t6               10.72        rel  76.4  1.29s   14.032       rel 100.0  1.46s 
+varied2          8.623        rel  67.1  0.69s   12.859       rel 100.0  0.80s 
+varied4          21.016       rel  63.2  0.73s   33.267       rel 100.0  1.02s 
+varied6          22.01        rel 100.0  1.60s   21.335       rel  96.9  1.46s 
+varied8          8.24         rel  61.3  1.60s   13.439       rel 100.0  1.46s 
+
+objective: max is better; time limit 2s
+sol_v3.cpp                     mean rel  78.9   slowest 1.60s   all valid and in time
+sol_optimized.cpp              mean rel  99.5   slowest 1.46s   all valid and in time

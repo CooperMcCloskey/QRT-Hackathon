@@ -1,0 +1,20 @@
+
+test     sol_padding_review.cpp        
+normal2  16.223       rel 100.0  0.19s 
+normal4  17           rel 100.0  0.47s 
+normal6  13.674       rel 100.0  0.96s 
+normal8  11.053       rel 100.0  1.46s 
+t0       20.302       rel 100.0  0.15s 
+t1       16.847       rel 100.0  0.34s 
+t2       17.017       rel 100.0  0.36s 
+t3       15.903       rel 100.0  0.83s 
+t4       13.155       rel 100.0  1.15s 
+t5       15           rel 100.0  1.38s 
+t6       13.798       rel 100.0  1.46s 
+varied2  12.859       rel 100.0  0.84s 
+varied4  33.267       rel 100.0  1.06s 
+varied6  21.335       rel 100.0  1.46s 
+varied8  13.439       rel 100.0  1.46s 
+
+objective: max is better; time limit 2s
+sol_padding_review.cpp         mean rel 100.0   slowest 1.46s   all valid and in time

@@ -5,6 +5,6 @@
 4. Unknown IDs or malformed lines invalidate the output. Duplicate pieces and overlaps cause later placements to be ignored.
 5. Omitted pieces are treated as distractors. Each predicted page is matched to at most one real page, with a free whole-page translation.
 6. Maximise correctly positioned non-space characters; score is their percentage. Official matching implementation is unavailable.
-7. Time, memory, and source-size limits are missing; asked user. Handoff assumed 2 s and 50 KB without confirmation.
+7. Contest-specific limits are unknown (user could not confirm). Published HackerRank defaults: 2 s C++, 512 MB, 50 KB source; target 1.45 s.
 8. Current sample input exists but its reference placement/truth is absent, so its reconstruction score cannot yet be checked.
 9. Existing generated tests include truth; their checker is a local scoring model, not the official judge.

@@ -1,0 +1,12 @@
+
+test  sol_word_soft_review.cpp      
+t0    5.949        rel 100.0  0.25s 
+t1    5.755        rel 100.0  0.48s 
+t2    6.817        rel 100.0  0.50s 
+t3    6.659        rel 100.0  0.74s 
+t4    5.585        rel 100.0  1.24s 
+t5    6.348        rel 100.0  1.57s 
+t6    5.973        rel 100.0  1.60s 
+
+objective: max is better; time limit 2s
+sol_word_soft_review.cpp       mean rel 100.0   slowest 1.60s   all valid and in time

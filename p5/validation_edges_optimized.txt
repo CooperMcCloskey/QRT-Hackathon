@@ -1,0 +1,8 @@
+
+test       sol_optimized.cpp             
+duplicate  100          rel 100.0  0.03s 
+many       0.31         rel 100.0  1.46s 
+whole      100          rel 100.0  0.03s 
+
+objective: max is better; time limit 2s
+sol_optimized.cpp              mean rel 100.0   slowest 1.46s   all valid and in time

@@ -1,0 +1,13 @@
+
+test  sol_word_ngram_0.5.cpp          sol_word_ngram_1.0.cpp        
+t0    7.177        rel  88.4  0.25s   8.121        rel 100.0  0.23s 
+t1    5.995        rel  94.3  0.51s   6.355        rel 100.0  0.50s 
+t2    6.304        rel 100.0  0.46s   6.099        rel  96.7  0.60s 
+t3    6.737        rel 100.0  0.80s   6.502        rel  96.5  0.83s 
+t4    5.864        rel 100.0  1.47s   5.337        rel  91.0  1.45s 
+t5    6.067        rel  95.6  1.61s   6.348        rel 100.0  1.57s 
+t6    5.503        rel  87.9  1.61s   6.26         rel 100.0  1.61s 
+
+objective: max is better; time limit 2s
+sol_word_ngram_0.5.cpp         mean rel  95.2   slowest 1.61s   all valid and in time
+sol_word_ngram_1.0.cpp         mean rel  97.8   slowest 1.61s   all valid and in time
