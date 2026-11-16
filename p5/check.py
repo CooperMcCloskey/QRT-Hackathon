@@ -46,18 +46,29 @@ def main():
                 if R.get((r+dr,c+dc))==ch: cnt+=1
             best=max(best,cnt)
         sc[(a,b)]=best
-    # assignment: greedy+improve via brute force on real pages (small)
-    best=0
-    cand={b:[a for a in sorted(mp,key=lambda a:-sc.get((a,b),0))[:5] if sc.get((a,b),0)>0] for b in rp}
-    def rec(i,usedm,acc):
-        nonlocal best
-        if i==len(rp):
-            best=max(best,acc);return
-        rec(i+1,usedm,acc)
-        for a in cand[rp[i]]:
-            if a in usedm: continue
-            usedm.add(a);rec(i+1,usedm,acc+sc[(a,rp[i])]);usedm.discard(a)
-    rec(0,set(),0)
+    # Exact maximum-weight one-to-one matching, with dummy empty pages.
+    # Hungarian algorithm: rows are real pages, columns are output pages.
+    n=len(rp);m=len(mp)+n
+    u=[0]*(n+1);v=[0]*(m+1);match=[0]*(m+1);way=[0]*(m+1)
+    for i in range(1,n+1):
+        match[0]=i;j0=0;dist=[float('inf')]*(m+1);used=[False]*(m+1)
+        while True:
+            used[j0]=True;i0=match[j0];delta=float('inf');j1=0
+            for j in range(1,m+1):
+                if used[j]:continue
+                value=sc.get((mp[j-1],rp[i0-1]),0) if j<=len(mp) else 0
+                cost=-value-u[i0]-v[j]
+                if cost<dist[j]:dist[j]=cost;way[j]=j0
+                if dist[j]<delta:delta=dist[j];j1=j
+            for j in range(m+1):
+                if used[j]:u[match[j]]+=delta;v[j]-=delta
+                else:dist[j]-=delta
+            j0=j1
+            if match[j0]==0:break
+        while True:
+            j1=way[j0];match[j0]=match[j1];j0=j1
+            if j0==0:break
+    best=sum(sc.get((mp[j-1],rp[match[j]-1]),0) for j in range(1,len(mp)+1) if match[j])
     print("placed %d/%d chars on %d real pages (%d my pages)"%(best,total,len(rp),len(mp)))
     print("SCORE %.3f max"%(100.0*best/total))
 main()

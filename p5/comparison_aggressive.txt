@@ -1,0 +1,14 @@
+
+test  sol_aggressive_base.cpp         sol_aggressive_small4k.cpp      sol_aggressive_large.cpp      
+t0    13.975       rel  46.0  0.13s   19.075       rel  62.7  0.14s   30.406       rel 100.0  0.15s 
+t1    11.751       rel  63.0  0.24s   10.132       rel  54.3  0.33s   18.645       rel 100.0  0.32s 
+t2    14.249       rel  65.4  0.30s   13.685       rel  62.8  0.41s   21.784       rel 100.0  0.36s 
+t3    10.145       rel  68.7  0.60s   14.767       rel 100.0  0.75s   13.318       rel  90.2  0.70s 
+t4    10.89        rel  84.8  0.81s   11.046       rel  86.0  1.14s   12.845       rel 100.0  0.99s 
+t5    11.32        rel  83.6  1.14s   10.674       rel  78.8  1.40s   13.539       rel 100.0  1.15s 
+t6    10.72        rel  70.5  1.32s   11.32        rel  74.4  1.61s   15.206       rel 100.0  1.42s 
+
+objective: max is better; time limit 2s
+sol_aggressive_base.cpp        mean rel  68.9   slowest 1.32s   all valid and in time
+sol_aggressive_small4k.cpp     mean rel  74.2   slowest 1.61s   all valid and in time
+sol_aggressive_large.cpp       mean rel  98.6   slowest 1.42s   all valid and in time
