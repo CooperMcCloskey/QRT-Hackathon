@@ -1,0 +1,20 @@
+00_sample: PASS
+bestL=18 t=0.92032
+length 18
+SCORE 18 min
+
+09_12x12_d100: PASS
+bestL=68 t=0.920605
+length 68
+SCORE 68 min
+
+32_50x50_d5: PASS
+bestL=126 t=0.920392
+length 126
+SCORE 126 min
+
+41_50x6_d100: PASS
+bestL=64 t=0.920306
+length 64
+SCORE 64 min
+
