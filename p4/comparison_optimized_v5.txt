@@ -1,0 +1,36 @@
+
+test                     finSolve_optimized_v5.cpp     
+10_12x12_d50             46           rel 100.0  0.92s 
+11_12x12_d20             22           rel 100.0  0.92s 
+12_12x12_d5              28           rel 100.0  0.92s 
+13_20x15_d100            144          rel 100.0  0.92s 
+14_20x15_d50             76           rel 100.0  0.92s 
+15_20x15_d20             42           rel 100.0  0.92s 
+16_20x15_d5              36           rel 100.0  0.92s 
+17_25x25_d100            256          rel 100.0  0.92s 
+18_25x25_d50             122          rel 100.0  0.92s 
+19_25x25_d20             82           rel 100.0  0.92s 
+20_25x25_d5              58           rel 100.0  0.92s 
+21_30x40_d100            376          rel 100.0  0.92s 
+22_30x40_d50             256          rel 100.0  0.92s 
+23_30x40_d20             148          rel 100.0  0.92s 
+24_30x40_d5              70           rel 100.0  0.92s 
+25_40x40_d100            428          rel 100.0  0.92s 
+26_40x40_d50             414          rel 100.0  0.92s 
+27_40x40_d20             220          rel 100.0  0.92s 
+28_40x40_d5              58           rel 100.0  0.92s 
+29_50x50_d100            572          rel 100.0  0.92s 
+30_50x50_d50             462          rel 100.0  0.92s 
+31_50x50_d20             304          rel 100.0  0.92s 
+32_50x50_d5              114          rel 100.0  0.92s 
+40_6x50_d50              78           rel 100.0  0.92s 
+41_50x6_d100             64           rel 100.0  0.92s 
+42_50x50_fill_d70        1564         rel 100.0  0.92s 
+43_50x50_fill_d100       1848         rel 100.0  0.92s 
+44_45x50_fill_d30_black  720          rel 100.0  0.92s 
+45_35x35_fill_d50_white  736          rel 100.0  0.92s 
+46_50x50_sparse2         30           rel 100.0  0.92s 
+47_50x50_sparse5         110          rel 100.0  0.93s 
+
+objective: min is better; time limit 10s
+finSolve_optimized_v5.cpp      mean rel 100.0   slowest 0.93s   all valid and in time
