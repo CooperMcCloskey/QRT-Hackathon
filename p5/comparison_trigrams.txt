@@ -1,0 +1,14 @@
+
+test  sol_trigram_0.5.cpp             sol_trigram_1.0.cpp             sol_trigram_1.5.cpp           
+t0    18.886       rel 100.0  0.13s   14.92        rel  79.0  0.11s   12.937       rel  68.5  0.11s 
+t1    11.691       rel  79.6  0.24s   12.71        rel  86.5  0.21s   14.688       rel 100.0  0.19s 
+t2    14.864       rel  99.3  0.31s   14.967       rel 100.0  0.27s   13.326       rel  89.0  0.25s 
+t3    10.889       rel  85.3  0.63s   12.769       rel 100.0  0.48s   12.182       rel  95.4  0.47s 
+t4    11.325       rel 100.0  0.87s   10.828       rel  95.6  0.80s   10.704       rel  94.5  0.68s 
+t5    11.629       rel 100.0  1.10s   10.646       rel  91.5  0.94s   10.449       rel  89.9  0.80s 
+t6    11.033       rel  83.6  1.24s   13.198       rel 100.0  1.09s   11.581       rel  87.7  0.91s 
+
+objective: max is better; time limit 2s
+sol_trigram_0.5.cpp            mean rel  92.5   slowest 1.24s   all valid and in time
+sol_trigram_1.0.cpp            mean rel  93.2   slowest 1.09s   all valid and in time
+sol_trigram_1.5.cpp            mean rel  89.3   slowest 0.91s   all valid and in time
