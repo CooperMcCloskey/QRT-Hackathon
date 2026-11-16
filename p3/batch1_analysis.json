@@ -1,0 +1,414 @@
+{
+  "source": "collector_790001fcd57d9292.json",
+  "per_t_estimates": [
+    {
+      "t": 0.0,
+      "scalar_slope_h05": 0.005899999999999989,
+      "scalar_slope_h1": 0.0063499999999999945,
+      "quadratic_penalty_estimate": 0.44445,
+      "N2_interaction_noisy": -0.052399999999999995,
+      "target": 0.0148
+    },
+    {
+      "t": 0.02,
+      "scalar_slope_h05": 0.04895000000000001,
+      "scalar_slope_h1": 0.023249999999999993,
+      "quadratic_penalty_estimate": 0.49515,
+      "N2_interaction_noisy": 0.0555,
+      "target": 0.0131
+    },
+    {
+      "t": 0.04,
+      "scalar_slope_h05": 0.0961,
+      "scalar_slope_h1": -0.05005000000000001,
+      "quadratic_penalty_estimate": 0.45985,
+      "N2_interaction_noisy": -0.09509999999999999,
+      "target": 0.014
+    },
+    {
+      "t": 0.06,
+      "scalar_slope_h05": 0.024399999999999977,
+      "scalar_slope_h1": 0.030700000000000005,
+      "quadratic_penalty_estimate": 0.5124,
+      "N2_interaction_noisy": 0.0092,
+      "target": 0.0162
+    },
+    {
+      "t": 0.08,
+      "scalar_slope_h05": 0.08695000000000001,
+      "scalar_slope_h1": 0.017799999999999983,
+      "quadratic_penalty_estimate": 0.5738000000000001,
+      "N2_interaction_noisy": -0.06319999999999998,
+      "target": 0.0204
+    },
+    {
+      "t": 0.1,
+      "scalar_slope_h05": 0.012300000000000005,
+      "scalar_slope_h1": 0.14225,
+      "quadratic_penalty_estimate": 0.52355,
+      "N2_interaction_noisy": 0.039200000000000006,
+      "target": 0.0244
+    },
+    {
+      "t": 0.12,
+      "scalar_slope_h05": 0.026450000000000015,
+      "scalar_slope_h1": 0.042049999999999976,
+      "quadratic_penalty_estimate": 0.57385,
+      "N2_interaction_noisy": -0.0097,
+      "target": 0.0254
+    },
+    {
+      "t": 0.14,
+      "scalar_slope_h05": -0.013749999999999998,
+      "scalar_slope_h1": 0.10565,
+      "quadratic_penalty_estimate": 0.57385,
+      "N2_interaction_noisy": -0.0795,
+      "target": 0.0248
+    },
+    {
+      "t": 0.16,
+      "scalar_slope_h05": 0.02059999999999998,
+      "scalar_slope_h1": -0.07855000000000001,
+      "quadratic_penalty_estimate": 0.54115,
+      "N2_interaction_noisy": -0.0471,
+      "target": 0.0238
+    },
+    {
+      "t": 0.18,
+      "scalar_slope_h05": -0.03835000000000002,
+      "scalar_slope_h1": -0.0743,
+      "quadratic_penalty_estimate": 0.3843,
+      "N2_interaction_noisy": -0.017900000000000006,
+      "target": 0.0253
+    },
+    {
+      "t": 0.2,
+      "scalar_slope_h05": -0.15510000000000002,
+      "scalar_slope_h1": -0.2759,
+      "quadratic_penalty_estimate": 0.4976,
+      "N2_interaction_noisy": -0.0464,
+      "target": 0.0393
+    },
+    {
+      "t": 0.22,
+      "scalar_slope_h05": -0.18605,
+      "scalar_slope_h1": -0.11145000000000002,
+      "quadratic_penalty_estimate": 0.46795,
+      "N2_interaction_noisy": -0.045899999999999996,
+      "target": 0.0587
+    },
+    {
+      "t": 0.24,
+      "scalar_slope_h05": -0.25834999999999997,
+      "scalar_slope_h1": -0.22924999999999998,
+      "quadratic_penalty_estimate": 0.51405,
+      "N2_interaction_noisy": 0.0296,
+      "target": 0.0754
+    },
+    {
+      "t": 0.26,
+      "scalar_slope_h05": -0.31765,
+      "scalar_slope_h1": -0.2688,
+      "quadratic_penalty_estimate": 0.5114,
+      "N2_interaction_noisy": 0.0345,
+      "target": 0.0886
+    },
+    {
+      "t": 0.28,
+      "scalar_slope_h05": -0.38815,
+      "scalar_slope_h1": -0.31520000000000004,
+      "quadratic_penalty_estimate": 0.5856,
+      "N2_interaction_noisy": 0.027899999999999994,
+      "target": 0.0959
+    },
+    {
+      "t": 0.3,
+      "scalar_slope_h05": -0.1894,
+      "scalar_slope_h1": -0.1953,
+      "quadratic_penalty_estimate": 0.5555,
+      "N2_interaction_noisy": -0.001600000000000018,
+      "target": 0.0969
+    },
+    {
+      "t": 0.32,
+      "scalar_slope_h05": -0.24345,
+      "scalar_slope_h1": -0.31610000000000005,
+      "quadratic_penalty_estimate": 0.4255,
+      "N2_interaction_noisy": -0.0577,
+      "target": 0.0915
+    },
+    {
+      "t": 0.34,
+      "scalar_slope_h05": -0.1533,
+      "scalar_slope_h1": -0.22595,
+      "quadratic_penalty_estimate": 0.49445000000000006,
+      "N2_interaction_noisy": 0.1255,
+      "target": 0.0867
+    },
+    {
+      "t": 0.36,
+      "scalar_slope_h05": -0.14765,
+      "scalar_slope_h1": -0.04359999999999997,
+      "quadratic_penalty_estimate": 0.4869,
+      "N2_interaction_noisy": -0.017399999999999995,
+      "target": 0.0892
+    },
+    {
+      "t": 0.38,
+      "scalar_slope_h05": -0.20575,
+      "scalar_slope_h1": -0.12025000000000001,
+      "quadratic_penalty_estimate": 0.35895,
+      "N2_interaction_noisy": -0.0021000000000000185,
+      "target": 0.0986
+    },
+    {
+      "t": 0.4,
+      "scalar_slope_h05": -0.19435,
+      "scalar_slope_h1": -0.1571,
+      "quadratic_penalty_estimate": 0.5325,
+      "N2_interaction_noisy": -0.0836,
+      "target": 0.1104
+    },
+    {
+      "t": 0.42,
+      "scalar_slope_h05": -0.1958,
+      "scalar_slope_h1": -0.29355,
+      "quadratic_penalty_estimate": 0.60045,
+      "N2_interaction_noisy": -0.0029999999999999957,
+      "target": 0.1202
+    },
+    {
+      "t": 0.44,
+      "scalar_slope_h05": -0.3292,
+      "scalar_slope_h1": -0.24405,
+      "quadratic_penalty_estimate": 0.50295,
+      "N2_interaction_noisy": 0.10569999999999999,
+      "target": 0.1318
+    },
+    {
+      "t": 0.46,
+      "scalar_slope_h05": -0.2533,
+      "scalar_slope_h1": -0.4212,
+      "quadratic_penalty_estimate": 0.5174,
+      "N2_interaction_noisy": 0.08189999999999997,
+      "target": 0.1274
+    },
+    {
+      "t": 0.48,
+      "scalar_slope_h05": -0.2471,
+      "scalar_slope_h1": -0.23210000000000003,
+      "quadratic_penalty_estimate": 0.4297,
+      "N2_interaction_noisy": -0.08059999999999998,
+      "target": 0.1059
+    },
+    {
+      "t": 0.5,
+      "scalar_slope_h05": -0.0668,
+      "scalar_slope_h1": 0.021999999999999992,
+      "quadratic_penalty_estimate": 0.45299999999999996,
+      "N2_interaction_noisy": -0.06569999999999998,
+      "target": 0.0925
+    },
+    {
+      "t": 0.52,
+      "scalar_slope_h05": 0.06945000000000001,
+      "scalar_slope_h1": 0.02410000000000001,
+      "quadratic_penalty_estimate": 0.5624,
+      "N2_interaction_noisy": -0.0381,
+      "target": 0.1109
+    },
+    {
+      "t": 0.54,
+      "scalar_slope_h05": 0.2563,
+      "scalar_slope_h1": 0.33825,
+      "quadratic_penalty_estimate": 0.48915000000000003,
+      "N2_interaction_noisy": -0.002100000000000001,
+      "target": 0.1334
+    },
+    {
+      "t": 0.56,
+      "scalar_slope_h05": 0.24924999999999997,
+      "scalar_slope_h1": 0.22765000000000002,
+      "quadratic_penalty_estimate": 0.45335000000000003,
+      "N2_interaction_noisy": -0.05539999999999999,
+      "target": 0.1352
+    },
+    {
+      "t": 0.58,
+      "scalar_slope_h05": 0.27805,
+      "scalar_slope_h1": 0.3315,
+      "quadratic_penalty_estimate": 0.5846,
+      "N2_interaction_noisy": 0.11479999999999999,
+      "target": 0.125
+    },
+    {
+      "t": 0.6,
+      "scalar_slope_h05": 0.32015,
+      "scalar_slope_h1": 0.28115,
+      "quadratic_penalty_estimate": 0.50695,
+      "N2_interaction_noisy": 0.07920000000000002,
+      "target": 0.1229
+    },
+    {
+      "t": 0.62,
+      "scalar_slope_h05": 0.24125000000000005,
+      "scalar_slope_h1": 0.16344999999999998,
+      "quadratic_penalty_estimate": 0.60915,
+      "N2_interaction_noisy": 0.08229999999999998,
+      "target": 0.124
+    },
+    {
+      "t": 0.64,
+      "scalar_slope_h05": 0.18075000000000002,
+      "scalar_slope_h1": 0.36205,
+      "quadratic_penalty_estimate": 0.60195,
+      "N2_interaction_noisy": 0.1107,
+      "target": 0.1278
+    },
+    {
+      "t": 0.66,
+      "scalar_slope_h05": 0.18515,
+      "scalar_slope_h1": 0.13885,
+      "quadratic_penalty_estimate": 0.44275,
+      "N2_interaction_noisy": 0.057499999999999996,
+      "target": 0.1308
+    },
+    {
+      "t": 0.68,
+      "scalar_slope_h05": 0.3644,
+      "scalar_slope_h1": 0.23654999999999998,
+      "quadratic_penalty_estimate": 0.5097499999999999,
+      "N2_interaction_noisy": 0.056900000000000006,
+      "target": 0.1274
+    },
+    {
+      "t": 0.7,
+      "scalar_slope_h05": 0.2819,
+      "scalar_slope_h1": 0.24774999999999997,
+      "quadratic_penalty_estimate": 0.46325,
+      "N2_interaction_noisy": 0.036899999999999995,
+      "target": 0.1291
+    },
+    {
+      "t": 0.72,
+      "scalar_slope_h05": 0.34155,
+      "scalar_slope_h1": 0.19120000000000004,
+      "quadratic_penalty_estimate": 0.371,
+      "N2_interaction_noisy": -0.0769,
+      "target": 0.1397
+    },
+    {
+      "t": 0.74,
+      "scalar_slope_h05": 0.42989999999999995,
+      "scalar_slope_h1": 0.2938,
+      "quadratic_penalty_estimate": 0.4967,
+      "N2_interaction_noisy": 0.09269999999999999,
+      "target": 0.1387
+    },
+    {
+      "t": 0.76,
+      "scalar_slope_h05": 0.25715,
+      "scalar_slope_h1": 0.1544,
+      "quadratic_penalty_estimate": 0.5751000000000001,
+      "N2_interaction_noisy": -0.1466,
+      "target": 0.1174
+    },
+    {
+      "t": 0.78,
+      "scalar_slope_h05": 0.29055000000000003,
+      "scalar_slope_h1": 0.24305,
+      "quadratic_penalty_estimate": 0.69045,
+      "N2_interaction_noisy": 0.015299999999999998,
+      "target": 0.0853
+    },
+    {
+      "t": 0.8,
+      "scalar_slope_h05": 0.14515,
+      "scalar_slope_h1": 0.37070000000000003,
+      "quadratic_penalty_estimate": 0.6332,
+      "N2_interaction_noisy": 0.016,
+      "target": 0.0524
+    },
+    {
+      "t": 0.82,
+      "scalar_slope_h05": 0.1044,
+      "scalar_slope_h1": 0.03495000000000004,
+      "quadratic_penalty_estimate": 0.76815,
+      "N2_interaction_noisy": 0.0339,
+      "target": 0.0284
+    },
+    {
+      "t": 0.84,
+      "scalar_slope_h05": -0.031200000000000006,
+      "scalar_slope_h1": 0.013349999999999973,
+      "quadratic_penalty_estimate": 0.52025,
+      "N2_interaction_noisy": 0.044099999999999986,
+      "target": 0.0203
+    },
+    {
+      "t": 0.86,
+      "scalar_slope_h05": 0.047,
+      "scalar_slope_h1": 0.05185000000000001,
+      "quadratic_penalty_estimate": 0.41975,
+      "N2_interaction_noisy": 0.1721,
+      "target": 0.022
+    },
+    {
+      "t": 0.88,
+      "scalar_slope_h05": 0.13879999999999998,
+      "scalar_slope_h1": -0.04189999999999999,
+      "quadratic_penalty_estimate": 0.3709,
+      "N2_interaction_noisy": -0.030800000000000015,
+      "target": 0.0247
+    },
+    {
+      "t": 0.9,
+      "scalar_slope_h05": -0.1766,
+      "scalar_slope_h1": 0.046499999999999986,
+      "quadratic_penalty_estimate": 0.4646,
+      "N2_interaction_noisy": 0.0966,
+      "target": 0.0249
+    },
+    {
+      "t": 0.92,
+      "scalar_slope_h05": 0.0072500000000000064,
+      "scalar_slope_h1": -0.11329999999999998,
+      "quadratic_penalty_estimate": 0.3871,
+      "N2_interaction_noisy": 0.02329999999999998,
+      "target": 0.0253
+    },
+    {
+      "t": 0.94,
+      "scalar_slope_h05": 0.014850000000000002,
+      "scalar_slope_h1": -0.11174999999999999,
+      "quadratic_penalty_estimate": 0.48844999999999994,
+      "N2_interaction_noisy": 0.1645,
+      "target": 0.0269
+    },
+    {
+      "t": 0.96,
+      "scalar_slope_h05": -0.05695,
+      "scalar_slope_h1": -0.00799999999999998,
+      "quadratic_penalty_estimate": 0.4599,
+      "N2_interaction_noisy": -0.1451,
+      "target": 0.029
+    },
+    {
+      "t": 0.98,
+      "scalar_slope_h05": 0.0068000000000000005,
+      "scalar_slope_h1": 0.2992,
+      "quadratic_penalty_estimate": 0.386,
+      "N2_interaction_noisy": -0.023499999999999997,
+      "target": 0.0308
+    },
+    {
+      "t": 1.0,
+      "scalar_slope_h05": 0.0577,
+      "scalar_slope_h1": -0.11935000000000001,
+      "quadratic_penalty_estimate": 0.48225,
+      "N2_interaction_noisy": 0.008800000000000016,
+      "target": 0.0324
+    }
+  ],
+  "note": "Model estimates from raw judge feedback; no official score computed. Scalar signal is insufficient to explain target; investigate array-index structure."
+}

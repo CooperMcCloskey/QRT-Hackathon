@@ -1,27 +1,30 @@
 # QRT C3 hackathon kit
 
-Competition: 18:30-21:00. One folder per problem, one person per problem.
+Competition: 18:30–20:30. One folder per problem, one person per problem.
 
 ## Live competition
 
 The competition has started. All five questions are **Approximate Solution**
 problems.
 
-| Question | Problem | Folder | Action |
+| Question | Problem | Folder | Who |
 |---|---|---|---|
-| 1 | Square packing++ | `p1/` | Claim an owner and get a valid baseline submitted |
-| 2 | Word Search Generation | `p2/` | Claim an owner and get a valid baseline submitted |
-| 3 | Black box | `p3/` | Our next problem in this session; full statement needed |
-| 4 | Masyu | `p4/` | Claim an owner and get a valid baseline submitted |
-| 5 | Bonus: Document Lego | `p5/` | Locked until the bonus requirement is met |
+| 1 | Square packing++ | `p1/` | Teammate |
+| 2 | Word Search Generation | `p2/` | Teammate |
+| 3 | Black box | `p3/` | This laptop (only this problem) |
+| 4 | Masyu | `p4/` | Teammate |
+| 5 | Bonus: Document Lego | `p5/` | Anyone with spare time |
 
-**Bonus requirement: the judge score must be strictly greater than 70% on
-each of Problems 1, 2, 3 and 4 before we can do Problem 5.** A score of exactly
-70% does not qualify; an average above 70% does not qualify.
+**Bonus rule: Problem 5 can be worked on and submitted at any time, but its
+points only count if the final score is strictly greater than 70% on each of
+Problems 1, 2, 3 and 4.** Exactly 70% does not qualify, and an average above
+70% does not qualify. For Problem 3 this is the official noiseless score, not
+the noisy feedback.
 
-- Get valid submissions on all four main problems before polishing one.
-- Then prioritise whichever main problems still need to exceed 70%; use
-  recorded judge scores to track eligibility for the bonus.
+- Work on Problem 5 can start early, but it only pays off if all four main
+  problems end above 70%. So a main problem stuck at or below 70% comes first.
+- Use recorded judge scores to track which main problems are still at or
+  below 70%, and help whichever one is furthest behind.
 - Keep one submission owner per problem and share ownership with the team.
 - At 20:10, stop starting new approaches and harden/re-check existing solutions.
 - By 20:25, confirm the best eligible version of every attempted problem is

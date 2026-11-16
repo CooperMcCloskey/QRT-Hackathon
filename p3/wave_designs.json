@@ -1,0 +1,122 @@
+[
+  {
+    "id": "WAVE_CONSTANT0_P",
+    "file": "probe_WAVE_CONSTANT0_P.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "constant",
+      "frequency": 0,
+      "amplitude": 0.5,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "WAVE_CONSTANT0_M",
+    "file": "probe_WAVE_CONSTANT0_M.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "constant",
+      "frequency": 0,
+      "amplitude": -0.5,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "WAVE_COS1_P",
+    "file": "probe_WAVE_COS1_P.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "cos",
+      "frequency": 1,
+      "amplitude": 0.5,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "WAVE_COS1_M",
+    "file": "probe_WAVE_COS1_M.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "cos",
+      "frequency": 1,
+      "amplitude": -0.5,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "WAVE_SIN1_P",
+    "file": "probe_WAVE_SIN1_P.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "sin",
+      "frequency": 1,
+      "amplitude": 0.5,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "WAVE_SIN1_M",
+    "file": "probe_WAVE_SIN1_M.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "sin",
+      "frequency": 1,
+      "amplitude": -0.5,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "WAVE_COS2_P",
+    "file": "probe_WAVE_COS2_P.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "cos",
+      "frequency": 2,
+      "amplitude": 0.5,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "WAVE_COS2_M",
+    "file": "probe_WAVE_COS2_M.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "cos",
+      "frequency": 2,
+      "amplitude": -0.5,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "WAVE_SIN2_P",
+    "file": "probe_WAVE_SIN2_P.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "sin",
+      "frequency": 2,
+      "amplitude": 0.5,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "WAVE_SIN2_M",
+    "file": "probe_WAVE_SIN2_M.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "sin",
+      "frequency": 2,
+      "amplitude": -0.5,
+      "grid": "i/(N-1)"
+    }
+  }
+]

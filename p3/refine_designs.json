@@ -1,0 +1,74 @@
+[
+  {
+    "id": "REFINE_COS3_P",
+    "file": "probe_REFINE_COS3_P.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "cos",
+      "frequency": 3,
+      "amplitude": 1.5,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "REFINE_SIN3_P",
+    "file": "probe_REFINE_SIN3_P.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "sin",
+      "frequency": 3,
+      "amplitude": 1.5,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "REFINE_SIN2_P",
+    "file": "probe_REFINE_SIN2_P.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "sin",
+      "frequency": 2,
+      "amplitude": 1.5,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "REFINE_COS2_P",
+    "file": "probe_REFINE_COS2_P.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "cos",
+      "frequency": 2,
+      "amplitude": 1.5,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "REFINE_COS4_P",
+    "file": "probe_REFINE_COS4_P.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "cos",
+      "frequency": 4,
+      "amplitude": 1.5,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "REFINE_SIN4_P",
+    "file": "probe_REFINE_SIN4_P.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "sin",
+      "frequency": 4,
+      "amplitude": 1.5,
+      "grid": "i/(N-1)"
+    }
+  }
+]

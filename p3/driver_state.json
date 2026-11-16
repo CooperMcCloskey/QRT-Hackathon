@@ -1,0 +1,1039 @@
+{
+  "completed": [],
+  "unverified": [
+    {
+      "id": "auto_03_minus",
+      "observations": [
+        {
+          "test_case": "Test Case 1",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 2",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 3",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 4",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 5",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 6",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 7",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 8",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 9",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 10",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 11",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 12",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 13",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 14",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 15",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 16",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 17",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 18",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 19",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 20",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 21",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 22",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 23",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 24",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 25",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 26",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 27",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 28",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 29",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 30",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 31",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 32",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 33",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 34",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 35",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 36",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 37",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 38",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 39",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 40",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 41",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 42",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 43",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 44",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 45",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 46",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 47",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 48",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 49",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 50",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 51",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": -0.429,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=-0.4290, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        }
+      ],
+      "transport": "visible UI",
+      "review_reason": "Same visible message assigned to every case; requires verification from a fresh judge response."
+    },
+    {
+      "id": "auto_01_zero",
+      "observations": [
+        {
+          "test_case": "Test Case 1",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 2",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 3",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 4",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 5",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 6",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 7",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 8",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 9",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 10",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 11",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 12",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 13",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 14",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 15",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 16",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 17",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 18",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 19",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 20",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 21",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 22",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 23",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 24",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 25",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 26",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 27",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 28",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 29",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 30",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 31",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 32",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 33",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 34",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 35",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 36",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 37",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 38",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 39",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 40",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 41",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 42",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 43",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 44",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 45",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 46",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 47",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 48",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 49",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 50",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        },
+        {
+          "test_case": "Test Case 51",
+          "t": 0,
+          "N": 1,
+          "raw_noisy_score": 0,
+          "raw_noiseless_target": 0.0148,
+          "normalized_noisy_score": 0,
+          "message": "t=0.00, N=1, raw_noisy_score=0.0000, raw_noiseless_target=0.0148, normalized_noisy_score=0.0000",
+          "exact_t": 0
+        }
+      ],
+      "transport": "visible UI",
+      "review_reason": "Same visible message assigned to every case; requires verification from a fresh judge response."
+    }
+  ]
+}

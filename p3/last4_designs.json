@@ -1,0 +1,50 @@
+[
+  {
+    "id": "LAST4_COS1_P",
+    "file": "probe_LAST4_COS1_P.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "cos",
+      "frequency": 1,
+      "amplitude": 1.0,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "LAST4_SIN1_P",
+    "file": "probe_LAST4_SIN1_P.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "sin",
+      "frequency": 1,
+      "amplitude": 1.0,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "LAST4_COS3_P",
+    "file": "probe_LAST4_COS3_P.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "cos",
+      "frequency": 3,
+      "amplitude": 1.0,
+      "grid": "i/(N-1)"
+    }
+  },
+  {
+    "id": "LAST4_SIN3_P",
+    "file": "probe_LAST4_SIN3_P.c",
+    "N": 4096,
+    "values": null,
+    "design": {
+      "kind": "sin",
+      "frequency": 3,
+      "amplitude": 1.0,
+      "grid": "i/(N-1)"
+    }
+  }
+]

@@ -1,0 +1,17 @@
+// macOS JavaScript for Automation. Read/execute only in the active contest tab.
+function run(argv) {
+    var names = ['Arc', 'Safari', 'Google Chrome', 'Brave Browser', 'Microsoft Edge'];
+    for (var i = 0; i < names.length; i++) {
+        var app;
+        try { app = Application(names[i]); if (!app.running()) continue; }
+        catch (_) { continue; }
+        var windows = app.windows();
+        if (!windows.length) continue;
+        var tab = names[i] === 'Safari' ? windows[0].currentTab() : windows[0].activeTab();
+        var url = tab.url();
+        if (!/^https:\/\/([a-z0-9-]+\.)?hackerrank\.com\//i.test(url)) continue;
+        if (names[i] === 'Safari') return app.doJavaScript(argv[0], {in: tab});
+        return tab.execute({javascript: argv[0]});
+    }
+    throw new Error('Keep the Black box HackerRank page selected in your browser, then retry.');
+}
