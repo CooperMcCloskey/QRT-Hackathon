@@ -104,5 +104,33 @@ def main():
         print(name, "genloop", L)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" and len(sys.argv) == 1:
     main()
+
+
+def extra():
+    """Robustness cases: thin grids, very sparse, grid-filling dense loops."""
+    os.makedirs("tests", exist_ok=True)
+    specs = [("40_6x50_d50", 6, 50, 600, 0.5, 0.5), ("41_50x6_d100", 50, 6, 600, 1.0, 0.5),
+             ("42_50x50_fill_d70", 50, 50, 20000, 0.7, 0.5), ("43_50x50_fill_d100", 50, 50, 20000, 1.0, 0.5),
+             ("44_45x50_fill_d30_black", 45, 50, 20000, 0.3, 0.8), ("45_35x35_fill_d50_white", 35, 35, 8000, 0.5, 0.2)]
+    for name, R, C, steps, dens, bw in specs:
+        g, L = make(R, C, steps, dens, hash(name) % 1000, bw)
+        with open(f"tests/{name}.in", "w") as f:
+            f.write(f"{R}\n" + "\n".join("".join(row) for row in g) + "\n")
+        print(name, "genloop", L)
+    # very sparse: a few pearls far apart
+    rnd = random.Random(7)
+    for name, R, C, k in [("46_50x50_sparse2", 50, 50, 2), ("47_50x50_sparse5", 50, 50, 5)]:
+        while True:
+            g = [['.'] * C for _ in range(R)]
+            for _ in range(k):
+                g[rnd.randrange(2, R - 2)][rnd.randrange(2, C - 2)] = rnd.choice('WB')
+            break
+        with open(f"tests/{name}.in", "w") as f:
+            f.write(f"{R}\n" + "\n".join("".join(row) for row in g) + "\n")
+        print(name)
+
+
+if __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] == "extra":
+    extra()

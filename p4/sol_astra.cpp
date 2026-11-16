@@ -528,8 +528,8 @@ public:
         lower=max(4,2*(r1-r0+c1-c0));
     }
     vector<string> solve(){
-        satSearch(0.30,2,N>500);
-        if(best.empty())satSearch(min(7.15,elapsed()+1.0),2,true,0,true);
+        satSearch(N>500?1.10:0.30,2,N>500);
+        if(best.empty())satSearch(min(7.15,elapsed()+1.6),2,true,0,true);
         if(best.empty())satSearch(min(7.15,elapsed()+1.0),2,false);
         int attempt=0;
         while(best.empty()&&elapsed()<7.1){

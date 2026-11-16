@@ -492,7 +492,7 @@ static void atMostK(const vector<int>& xs, int K, int base) {
 
 // one LNS step on an arbitrary set of free cells (edges touching a free cell are free)
 static long long lnsTried = 0, lnsImproved = 0, lnsUnsat = 0;
-static bool lnsCells(vector<char>& cur, const vector<char>& freeCell, int r0, int r1, int c0, int c1, long long climit, double deadline, bool useCard = true) {
+static bool lnsCells(vector<char>& cur, const vector<char>& freeCell, int r0, int r1, int c0, int c1, long long climit, double deadline, bool useCard = true, bool plateau = false) {
     static vector<int> fr;
     static vector<char> isFree;
     fr.clear(); isFree.assign(E, 0);
@@ -501,7 +501,7 @@ static bool lnsCells(vector<char>& cur, const vector<char>& freeCell, int r0, in
         if (freeCell[eu[e]] || freeCell[ev[e]]) { isFree[e] = 1; fr.push_back(e); curFree += cur[e]; }
     }
     if (useCard && curFree < 2) return false;
-    int K = curFree - 2;
+    int K = plateau ? curFree : curFree - 2;
     int n = fr.size();
     BR0 = r0; BR1 = r1; BC0 = c0; BC1 = c1;
     buildBase(E);
@@ -510,6 +510,7 @@ static bool lnsCells(vector<char>& cur, const vector<char>& freeCell, int r0, in
     (void)n;
     cdcl::cardOn = useCard; cdcl::cardK = K; cdcl::cardVars = fr;
     for (int e : fr) cdcl::cardIn[e] = 1;
+    if (plateau) { vector<int> d; for (int e : fr) d.push_back(2 * e + (cur[e] ? 1 : 0)); cdcl::addClause(d); }
     for (int e = 0; e < E; e++) cdcl::phase[e] = cur[e];
     cdcl::conflLimit = climit;
     lnsTried++;
@@ -518,13 +519,14 @@ static bool lnsCells(vector<char>& cur, const vector<char>& freeCell, int r0, in
     int Lr = 0, Lc = 0;
     for (int e = 0; e < E; e++) { Lr += r[e]; Lc += cur[e]; }
     if (!useCard || Lr < Lc) { cur = r; lnsImproved++; return true; }
+    if (plateau && Lr == Lc) { cur = r; return false; }
     return false;
 }
-static bool lnsStep(vector<char>& cur, int r0, int r1, int c0, int c1, long long climit, double deadline) {
+static bool lnsStep(vector<char>& cur, int r0, int r1, int c0, int c1, long long climit, double deadline, bool plateau = false) {
     static vector<char> fc;
     fc.assign(N, 0);
     for (int r = r0; r <= r1; r++) for (int c = c0; c <= c1; c++) fc[r * C + c] = 1;
-    return lnsCells(cur, fc, r0, r1, c0, c1, climit, deadline);
+    return lnsCells(cur, fc, r0, r1, c0, c1, climit, deadline, true, plateau);
 }
 // loop order of cells
 static vector<int> loopOrder(const vector<char>& cur) {

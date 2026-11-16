@@ -542,7 +542,55 @@ int main() {
             sa::run(best, bestL, max(0.9, tsat + 0.3), W, TS, TE);
         }
         cerr << "tsat=" << tsat << " ";
-    } else if (mode == "full" || mode == "") {
+    } else if (mode == "multi" || mode == "") {
+        int wmin = getenv("WMIN") ? atoi(getenv("WMIN")) : 3, wmax = getenv("WMAX") ? atoi(getenv("WMAX")) : 8;
+        long long cl = getenv("CL") ? atoll(getenv("CL")) : 500;
+        double tend = getenv("TEND") ? atof(getenv("TEND")) : 0.9;
+        double fsa = getenv("FSA") ? atof(getenv("FSA")) : 0.2;
+        int NR = getenv("NRS") ? atoi(getenv("NRS")) : 2;
+        int globalP = getenv("GLOBP") ? atoi(getenv("GLOBP")) : 10;
+        double plateauP = getenv("PLP") ? atof(getenv("PLP")) : 0.2;
+        auto lns = [&](vector<char>& cur, double tStop) {
+            int fails = 0;
+            while (elapsed() < tStop) {
+                int e0;
+                do { e0 = rndi(E); } while (!cur[e0]);
+                int x = eu[e0];
+                int grow = min(fails / 30, 6);
+                int h = wmin + grow + rndi(wmax - wmin + 1), w = wmin + grow + rndi(wmax - wmin + 1);
+                int r0 = max(0, x / C - rndi(h)), c0 = max(0, x % C - rndi(w));
+                int r1 = min(R - 1, r0 + h - 1), c1 = min(C - 1, c0 + w - 1);
+                bool ok;
+                if (E < 600 && rndi(globalP) == 0) ok = lnsStep(cur, 0, R - 1, 0, C - 1, cl * 4, tStop);
+                else ok = lnsStep(cur, r0, r1, c0, c1, cl, tStop, rnd01() < plateauP);
+                if (ok) fails = 0; else fails++;
+            }
+        };
+        auto lenOf = [&](const vector<char>& v) { int l = 0; for (int e = 0; e < E; e++) l += v[e]; return l; };
+        for (int k = 0; k < NR && elapsed() < tend; k++) {
+            double slot = (tend - elapsed()) / (NR - k);
+            double tStop = elapsed() + slot;
+            vector<char> b; int bl = 1 << 30;
+            sa::setState(start);
+            sa::run(b, bl, elapsed() + slot * fsa, W, TS, TE);
+            vector<char> hint = sa::on;
+            if (b.empty()) {
+                vector<char> rp = hint;
+                if (repairLoop(rp, best.empty() ? 6.0 : tStop)) b = rp;
+            }
+            if (b.empty() && best.empty()) b = satSolve(8.0, &hint);
+            if (b.empty()) continue;
+            lns(b, max(tStop, elapsed() + 0.02));
+            int l = lenOf(b);
+            cerr << "restart " << k << " L=" << l << " t=" << elapsed() << "\n";
+            if (l < bestL) { bestL = l; best = b; }
+        }
+        if (best.empty()) {  // last resort
+            vector<char> r = satSolve(8.5);
+            if (!r.empty()) { best = r; bestL = lenOf(r); }
+        }
+        cerr << "tried=" << lnsTried << " impr=" << lnsImproved << " unsat=" << lnsUnsat << " ";
+    } else if (mode == "full") {
         int wmin = getenv("WMIN") ? atoi(getenv("WMIN")) : 3, wmax = getenv("WMAX") ? atoi(getenv("WMAX")) : 8;
         long long cl = getenv("CL") ? atoll(getenv("CL")) : 500;
         double tend = getenv("TEND") ? atof(getenv("TEND")) : 0.9;
