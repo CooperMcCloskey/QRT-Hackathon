@@ -1,5 +1,0 @@
-AddressSanitizer and UndefinedBehaviorSanitizer. Leak detection disabled: this environment runs under ptrace, unsupported by LeakSanitizer.
-00_sample: sanitizer clean; SCORE 18 min
-09_12x12_d100: sanitizer clean; SCORE 68 min
-15_20x15_d20: sanitizer clean; SCORE 48 min
-32_50x50_d5: sanitizer clean; SCORE 194 min
