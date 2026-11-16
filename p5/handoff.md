@@ -46,3 +46,22 @@ Valid C++ submission exists, but it only scores about 10-11% on my local tests. 
 - `./rt.sh <binary>` runs all `tests/t*.in` through `check.py`. Compile with `-DLOCAL` for stderr diagnostics and env overrides (`TS`, `C0`, `TLIM`).
 - `fragcheck.py` / `regdbg.py` / `show.py` inspect an output against the truth.
 - `tools/run_tests.py` was not used and `scores.jsonl` was not written for p5.
+
+## Update 20:25 (second session)
+- `sol_v3.cpp` = `sol_v2.cpp` with one change: one merge pass per confidence threshold instead of two
+  (`TS[min(pass, 4)]`; source copy in `core_v8.cpp`). Submit this one.
+- Why: quality at the 1.6 s limit is the same within noise (local mean 11.85 vs 11.64), but it converges
+  about twice as fast. With less time (simulating a bigger real test) it holds up better:
+  at a 0.8 s limit the mean is 11.25 vs 10.17, and on t4-t6 it is 10.1/9.4/9.1 vs 7.9/6.9/6.6.
+- Tried and found to be noise (all 11.2-12.6 mean): threshold values, finer threshold steps with more passes.
+  `core_v7` is worse on the large tests (mean 9.84) because it runs out of time.
+- Nothing structural was attempted; there was no time for a new method.
+
+## Update 20:32 (third session): submit `sol_v4.cpp`
+- `sol_v4.cpp` = `sol_v3.cpp` with a smoother merge schedule: threshold `-0.7 * pass` for up to 16 passes
+  (was 0, -1, -2, -3, -4 then held). Compiles with `-std=c++11` and `-std=c++14` (C++17 is not available).
+- Local means: Wikipedia-text tests (`tests/`) 12.58 vs 11.85 for v3; simple-English tests (`stests/`, new,
+  generated from `.work/simple.txt` with `.work/gen2.py`) 10.00 vs 9.18. Better on both sets.
+- Largest tests run 1.5-1.6 s (internal cut-off `TLIM = 1.6`), about 12.6 MB memory.
+- Other schedules tried (all within noise or worse): -0.5/-1.0/-1.5 per pass, 12 vs 16 passes.
+- `sol_confidence_review.cpp` (another session) scores exactly the same as v3 locally.

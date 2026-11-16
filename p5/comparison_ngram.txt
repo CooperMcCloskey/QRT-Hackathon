@@ -1,0 +1,13 @@
+
+test  sol_ngram_small.cpp             sol_ngram_large.cpp           
+t0    18.791       rel  61.8  0.16s   30.406       rel 100.0  0.16s 
+t1    9.532        rel  51.1  0.31s   18.645       rel 100.0  0.33s 
+t2    12.25        rel  56.2  0.40s   21.784       rel 100.0  0.37s 
+t3    15.55        rel 100.0  0.81s   13.318       rel  85.6  0.70s 
+t4    9.68         rel  75.4  1.14s   12.845       rel 100.0  0.99s 
+t5    10.309       rel  76.1  1.43s   13.539       rel 100.0  1.18s 
+t6    13.093       rel  86.1  1.59s   15.206       rel 100.0  1.40s 
+
+objective: max is better; time limit 2s
+sol_ngram_small.cpp            mean rel  72.4   slowest 1.59s   all valid and in time
+sol_ngram_large.cpp            mean rel  97.9   slowest 1.40s   all valid and in time

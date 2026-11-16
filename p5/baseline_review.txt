@@ -1,0 +1,12 @@
+
+test  sol_v3.cpp                    
+t0    13.975       rel 100.0  0.11s 
+t1    11.691       rel 100.0  0.25s 
+t2    14.249       rel 100.0  0.30s 
+t3    10.145       rel 100.0  0.59s 
+t4    10.859       rel 100.0  0.84s 
+t5    11.32        rel 100.0  1.12s 
+t6    10.72        rel 100.0  1.30s 
+
+objective: max is better; time limit 2s
+sol_v3.cpp                     mean rel 100.0   slowest 1.30s   all valid and in time

@@ -1,0 +1,14 @@
+
+test  sol_small4k_review.cpp          sol_compact25_review.cpp        sol_medium15_review.cpp       
+t0    19.075       rel 100.0  0.16s   18.036       rel  94.6  0.15s   14.164       rel  74.3  0.12s 
+t1    10.132       rel  88.0  0.34s   11.511       rel 100.0  0.34s   11.151       rel  96.9  0.30s 
+t2    13.685       rel  88.1  0.38s   15.53        rel 100.0  0.38s   11.891       rel  76.6  0.41s 
+t3    14.767       rel 100.0  0.78s   9.244        rel  62.6  0.75s   12.221       rel  82.8  0.69s 
+t4    11.046       rel  94.4  1.16s   11.697       rel 100.0  1.14s   11.48        rel  98.1  1.10s 
+t5    10.59        rel  93.6  1.45s   10.365       rel  91.6  1.35s   11.32        rel 100.0  1.28s 
+t6    11.294       rel  82.8  1.60s   11.242       rel  82.4  1.61s   13.641       rel 100.0  1.61s 
+
+objective: max is better; time limit 2s
+sol_small4k_review.cpp         mean rel  92.4   slowest 1.60s   all valid and in time
+sol_compact25_review.cpp       mean rel  90.2   slowest 1.61s   all valid and in time
+sol_medium15_review.cpp        mean rel  89.8   slowest 1.61s   all valid and in time
