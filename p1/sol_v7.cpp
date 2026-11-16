@@ -317,6 +317,8 @@ static ll dNodes, dNodeLimit, dBudget;
 static double dDeadline;
 static bool dStop;
 static int dHt;
+static double dNoise = 0;
+static vector<vector<pair<double, int> > > dCand;
 
 static bool dfs(int depth, int placed, ll waste, int minr) {
     if (placed == n) return true;
@@ -357,8 +359,18 @@ static bool dfs(int depth, int placed, ll waste, int minr) {
         return dfs(depth + 1, placed, waste + (ll)g * (t - h), minr);
     }
     int rmax = (int)(upper_bound(rankSize.begin(), rankSize.end(), lim) - rankSize.begin()) - 1;
+    // candidate sizes, largest first; restarts perturb the order
+    vector<pair<double, int> >& cd = dCand[depth];
+    cd.clear();
     for (int r = rmax; r >= minr; r--) {
         if (!dCnt[r]) continue;
+        double key = (double)rankSize[r];
+        if (dNoise > 0) key *= 1.0 - dNoise * rnd01();
+        cd.push_back(make_pair(-key, r));
+    }
+    if (dNoise > 0) sort(cd.begin(), cd.end());
+    for (size_t ci = 0; ci < cd.size(); ci++) {
+        int r = cd[ci].second;
         int s = rankSize[r];
         int nh = h + s;
         ch.clear();
@@ -383,6 +395,7 @@ static bool dfs(int depth, int placed, ll waste, int minr) {
 // search, -1 = stopped by the node or time limit.
 static int exact_box(ll W, ll H, ll nodeLimit, double deadline) {
     dSeg.assign(3 * n + 8, vector<Seg>());
+    if ((int)dCand.size() < 3 * n + 8) dCand.assign(3 * n + 8, vector<pair<double, int> >());
     dCnt = cnt0;
     dRank.assign(n, 0); dPX.assign(n, 0); dPH.assign(n, 0);
     dNodes = 0; dNodeLimit = nodeLimit; dDeadline = deadline; dStop = false;
@@ -568,11 +581,15 @@ int main() {
             return fabs(p.first - root) < fabs(q.first - root);
         });
         if (boxes.size() > 16) boxes.resize(16);
-        double dfsEnd = TIME_BUDGET * envd("SP_DFS", 0.6);
+        double dfsEnd = TIME_BUDGET * envd("SP_DFS", 0.75);
         vector<char> dead(boxes.size(), 0);
         bool found = false;
-        for (ll lim = 20000; !found && elapsed() < dfsEnd; lim *= 4) {
+        double NZ = envd("SP_NZ", 0.3), GROW = envd("SP_GROW", 1.5);
+        int round = 0;
+        for (double limd = envd("SP_LIM0", 20000); !found && elapsed() < dfsEnd; limd *= GROW, round++) {
+            ll lim = (ll)limd;
             bool anyLive = false;
+            dNoise = round == 0 ? 0.0 : NZ * (0.5 + 0.5 * (round % 3));
             for (size_t b = 0; b < boxes.size() && !found && elapsed() < dfsEnd; b++) {
                 if (dead[b]) continue;
                 int r = exact_box(boxes[b].first, boxes[b].second, lim, dfsEnd);
