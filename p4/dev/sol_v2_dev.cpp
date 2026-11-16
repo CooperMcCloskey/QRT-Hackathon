@@ -542,7 +542,106 @@ int main() {
             sa::run(best, bestL, max(0.9, tsat + 0.3), W, TS, TE);
         }
         cerr << "tsat=" << tsat << " ";
-    } else if (mode == "multi" || mode == "") {
+    } else if (mode == "v7" || mode == "") {
+        int wmin = getenv("WMIN") ? atoi(getenv("WMIN")) : 3, wmax = getenv("WMAX") ? atoi(getenv("WMAX")) : 8;
+        long long cl = getenv("CL") ? atoll(getenv("CL")) : 500;
+        double tend = getenv("TEND") ? atof(getenv("TEND")) : 0.9;
+        double tsa = getenv("TSA") ? atof(getenv("TSA")) : 0.25;
+        double plateauP = getenv("PLP") ? atof(getenv("PLP")) : 0.0;
+        int flipEvery = getenv("FLIPEV") ? atoi(getenv("FLIPEV")) : 40;
+        double flipMs = getenv("FLIPMS") ? atof(getenv("FLIPMS")) : 0.012;
+        double polT = getenv("POLT") ? atof(getenv("POLT")) : 0.5;
+        int useB = getenv("NOB") ? 0 : 1;
+        double lateLns = getenv("LATE") ? atof(getenv("LATE")) : 0.25;
+        auto lenOf = [&](const vector<char>& v) { int l = 0; for (int e = 0; e < E; e++) l += v[e]; return l; };
+        // independent validity check: degrees, pearls, one cycle
+        auto validLoop = [&](const vector<char>& v) {
+            if ((int)v.size() != E) return false;
+            vector<int> dg(N, 0); int tot = 0, s0 = -1;
+            for (int e = 0; e < E; e++) if (v[e]) { dg[eu[e]]++; dg[ev[e]]++; tot++; s0 = eu[e]; }
+            if (tot < 4) return false;
+            for (int x = 0; x < N; x++) { if (dg[x] != 0 && dg[x] != 2) return false; if (isPearl[x] && dg[x] != 2) return false; }
+            for (int pi = 0; pi < nPearls; pi++) if (!pearlSat(v, pi)) return false;
+            int prev = -1, x = s0, cnt = 0;
+            do {
+                int nx = -1;
+                for (int d = 0; d < 4; d++) { int f = cedge[x * 4 + d]; if (f >= 0 && v[f] && nbr[x * 4 + d] != prev) { nx = nbr[x * 4 + d]; break; } }
+                if (nx < 0) return false;
+                prev = x; x = nx; cnt++;
+            } while (x != s0 && cnt <= tot);
+            return cnt == tot;
+        };
+        // hard face-flip polish of a valid loop (pearl violations effectively forbidden)
+        auto polish = [&](vector<char>& cur, double dur, double T0, bool walk) {
+            int cl0 = lenOf(cur);
+            vector<char> b = cur; int bl = cl0;
+            sa::setState(cur);
+            sa::run(b, bl, elapsed() + dur, 1000.0, T0, 0.15);
+            if (bl < cl0) cur = b;
+            else if (walk && sa::nViol == 0 && sa::L == cl0) cur = sa::on;
+        };
+        // 1) penalised SA from the border rectangle
+        vector<char> b; int bl = 1 << 30;
+        sa::setState(start);
+        sa::run(b, bl, tsa, W, TS, TE);
+        vector<char> hint = sa::on;
+        vector<char> cand;
+        int lenA = -1, lenB = -1;
+        if (!b.empty() && validLoop(b)) cand = b;
+        else {
+            // A) repair the SA loop window by window
+            vector<char> rp = hint;
+            if (repairLoop(rp, 2.0) && validLoop(rp)) { polish(rp, 0.03, polT, false); cand = rp; lenA = lenOf(rp); }
+            // B) SAT from scratch, then flip polish
+            if (useB && (cand.empty() || (N <= 1300 && elapsed() < 0.45))) {
+                vector<char> r;
+                if (!cand.empty()) r = satSolve(elapsed() + 0.2, nullptr);
+                else {
+                    // hedged restarts: alternate hint / no hint, then randomised order, growing budgets
+                    double bud = 0.35;
+                    for (int k = 0; r.empty() && elapsed() < 8.0; k++) {
+                        satRandAct = k >= 2;
+                        r = satSolve(min(8.0, elapsed() + bud), (k % 2 == 0) ? &hint : nullptr);
+                        if (k % 2 == 1) bud *= 1.8;
+                    }
+                    satRandAct = 0;
+                }
+                if (!r.empty() && validLoop(r)) {
+                    polish(r, 0.05, polT, false);
+                    lenB = lenOf(r);
+                    if (cand.empty() || lenB < lenA) cand = r;
+                }
+            }
+        }
+        if (cand.empty() && elapsed() < 8.4) {  // last resort
+            satRandAct = 1;
+            vector<char> r = satSolve(8.6);
+            if (!r.empty() && validLoop(r)) cand = r;
+        }
+        if (!cand.empty()) {
+            best = cand; bestL = lenOf(cand);
+            vector<char> cur = cand;
+            int fails = 0, steps = 0;
+            // a late first loop is far from converged: guarantee some shortening time
+            if (elapsed() > tend - lateLns) tend = elapsed() + lateLns;
+            while (elapsed() < tend) {
+                if (flipEvery > 0 && ++steps % flipEvery == 0 && elapsed() + flipMs < tend) { polish(cur, flipMs, polT, true); continue; }
+                int e0;
+                do { e0 = rndi(E); } while (!cur[e0]);
+                int x = eu[e0];
+                int grow = min(fails / 30, 6);
+                int h = wmin + grow + rndi(wmax - wmin + 1), w = wmin + grow + rndi(wmax - wmin + 1);
+                int r0 = max(0, x / C - rndi(h)), c0 = max(0, x % C - rndi(w));
+                int r1 = min(R - 1, r0 + h - 1), c1 = min(C - 1, c0 + w - 1);
+                bool ok;
+                if (E < 600 && rndi(10) == 0) ok = lnsStep(cur, 0, R - 1, 0, C - 1, cl * 4, tend);
+                else ok = lnsStep(cur, r0, r1, c0, c1, cl, tend, rnd01() < plateauP);
+                if (ok) fails = 0; else fails++;
+            }
+            if (validLoop(cur) && lenOf(cur) <= bestL) { best = cur; bestL = lenOf(cur); }
+        }
+        cerr << "lenA=" << lenA << " lenB=" << lenB << " tried=" << lnsTried << " impr=" << lnsImproved << " unsat=" << lnsUnsat << " ";
+    } else if (mode == "multi") {
         int wmin = getenv("WMIN") ? atoi(getenv("WMIN")) : 3, wmax = getenv("WMAX") ? atoi(getenv("WMAX")) : 8;
         long long cl = getenv("CL") ? atoll(getenv("CL")) : 500;
         double tend = getenv("TEND") ? atof(getenv("TEND")) : 0.9;

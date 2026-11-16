@@ -459,10 +459,16 @@ static vector<char> solveLoop(double deadline) {
     }
 }
 
+static int satRandAct = 0;
 static vector<char> satSolve(double deadline, const vector<char>* hint = nullptr) {
     BR0 = 0; BR1 = 1 << 20; BC0 = 0; BC1 = 1 << 20;
     buildBase(E);
     if (hint) for (int e = 0; e < E; e++) cdcl::phase[e] = (*hint)[e];
+    if (satRandAct) {  // randomised variable order for hedged restarts
+        for (int v = 0; v < E; v++) cdcl::act[v] = rnd01();
+        cdcl::heap.clear(); fill(cdcl::hpos.begin(), cdcl::hpos.end(), -1);
+        for (int v = 0; v < E; v++) cdcl::hinsert(v);
+    }
     cdcl::conflLimit = (long long)4e18;
     return solveLoop(deadline);
 }
